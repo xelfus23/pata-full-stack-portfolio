@@ -12,7 +12,7 @@ export const HandleLogin = async (username: string, password: string) => {
             password: password,
         } as userType;
         axios
-            .get<userType>("http://localhost:5454/user", { params: data })
+            .get<userType>("https://patrick-web.vercel.app/user", { params: data })
             .then((res) => {
                 console.log(res);
             })

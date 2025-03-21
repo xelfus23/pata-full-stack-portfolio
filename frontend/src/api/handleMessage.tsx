@@ -14,7 +14,7 @@ export const SendMessage = async (
             message,
         };
         axios
-            .post("http://localhost:5454/messages", data)
+            .post("https://patrick-web.vercel.app/messages", data)
             .then((res) => {
                 console.log(res);
             })
