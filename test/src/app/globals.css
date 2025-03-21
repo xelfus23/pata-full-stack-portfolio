@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+:root {
+    --background: #070c0c;
+    --text: #e7ecec;
+    --primary: #00ffe6;
+    --secondary: #277870;
+    --accent: #46d7c8;
+}
+
+@theme inline {
+    --color-background: #070c0c;
+    --color-text: #e7ecec;
+    --color-primary: #00ffe6;
+    --color-secondary: #277870;
+    --color-accent: #46d7c8;
+    --color-font-inter: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background: #070c0c;
+        --text: #e7ecec;
+        --primary: #00ffe6;
+        --secondary: #277870;
+        --accent: #46d7c8;
+    }
+}
+
+/* Add this to your CSS file */
+.formatted-content ul {
+    list-style-type: disc;
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.formatted-content li {
+    margin-bottom: 0.25rem;
+}
+
+.formatted-content p {
+    margin-bottom: 1rem;
+}
+
+.formatted-content h1,
+.formatted-content h2,
+.formatted-content h3 {
+    font-weight: bold;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.formatted-content h1 {
+    font-size: 1.5rem;
+}
+
+.formatted-content h2 {
+    font-size: 1.25rem;
+}
+
+.formatted-content h3 {
+    font-size: 1.1rem;
+}
+
+.formatted-content code {
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 0.1rem 0.3rem;
+    border-radius: 0.25rem;
+    font-family: monospace;
+}
+
+.formatted-content a {
+    color: #0066cc;
+    text-decoration: underline;
+}
+
+.formatted-content hr {
+    margin: 1rem 0;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+}
+
+::-webkit-scrollbar {
+    background: var(--background);
+    border-radius: 100;
+    width: 0.5vw;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent);
+    border-radius: 100;
+}
+
+::-webkit-scrollbar-track-piece {
+    background: var(--secondary);
+    border-radius: 100;
+}
+
+::-webkit-scrollbar-corner {
+    background: var(--text);
+}
+
+body {
+    background: var(--background);
+    font-family: Arial, Helvetica, sans-serif;
+    scrollbar-gutter: stable; /* Preferred method */
+    /* cursor: crosshair; */
+}
