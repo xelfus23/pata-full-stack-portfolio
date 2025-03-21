@@ -22,7 +22,7 @@ const app = express();
 app.use(express.json());
 app.use(
     cors({
-        origin: ["https://deploy-mern/patrick-web.vercel.app"],
+        origin: ["https://patrick-web.vercel.app"],
         methods: ["GET", "POST"],
         credentials: true,
     })
