@@ -107,7 +107,7 @@ const ChatBox: React.FC = () => {
                 try {
                     // Load existing session
                     const response = await axios.get(
-                        `https://patrick-web.vercel.app/sessions/${savedSessionId}`
+                        `${process.env.NEXT_PUBLIC_URL}sessions/${savedSessionId}`
                     );
                     setSessionId(savedSessionId);
 
@@ -139,7 +139,7 @@ const ChatBox: React.FC = () => {
         const createNewSession = async () => {
             try {
                 const response = await axios.post(
-                    "https://patrick-web.vercel.app/sessions"
+                    `${process.env.NEXT_PUBLIC_URL}sessions`
                 );
                 const newSessionId = response.data.session._id;
                 setSessionId(newSessionId);
@@ -175,7 +175,7 @@ const ChatBox: React.FC = () => {
             setMessages((prev) => [...prev, newMessage]);
 
             await axios
-                .post("https://patrick-web.vercel.app/chats", {
+                .post(`${process.env.NEXT_PUBLIC_URL}chats`, {
                     sessionId: sessionId,
                     role: "user",
                     message: newInput,

@@ -6,8 +6,6 @@ export const SendMessage = async (
     company: string,
     message: string
 ) => {
-    axios.defaults.withCredentials = true;
-
     try {
         const data = {
             name,
@@ -15,8 +13,9 @@ export const SendMessage = async (
             company,
             message,
         };
+        axios.defaults.withCredentials = true;
         axios
-            .post("https://patrick-web.vercel.app/messages", data)
+            .post(`${process.env.NEXT_PUBLIC_URL}messages`, data)
             .then((res) => {
                 console.log(res);
             })

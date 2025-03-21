@@ -6,14 +6,13 @@ type userType = {
 };
 
 export const HandleLogin = async (username: string, password: string) => {
-    axios.defaults.withCredentials = true;
     try {
         const data = {
             username: username,
             password: password,
         } as userType;
         axios
-            .get<userType>("https://patrick-web.vercel.app/user", {
+            .get<userType>(`${process.env.NEXT_PUBLIC_URL}user`, {
                 params: data,
             })
             .then((res) => {
