@@ -6,6 +6,8 @@ export const SendMessage = async (
     company: string,
     message: string
 ) => {
+    axios.defaults.withCredentials = true;
+
     try {
         const data = {
             name,

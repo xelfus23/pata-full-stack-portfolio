@@ -90,6 +90,7 @@ const ChatBox: React.FC = () => {
             id: "1",
         },
     ]);
+    axios.defaults.withCredentials = true;
 
     useEffect(() => {
         if (messageRef.current) {
