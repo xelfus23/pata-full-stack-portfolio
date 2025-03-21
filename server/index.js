@@ -1,10 +1,5 @@
 // backend/index.js
-import {
-    GoogleGenerativeAI,
-    HarmCategory,
-    HarmBlockThreshold,
-} from "@google/generative-ai";
-
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
@@ -20,15 +15,15 @@ dotenv.config();
 const app = express();
 
 app.use(express.json());
-app.use(
-    cors({
-        origin: ["https://patrick-web.vercel.app/"],
-        methods: ["GET", "POST"],
-        credentials: true,
-    })
-);
+app.use(cors());
 
-const PORT = process.env.PORT || 5000; // Provide a default port
+/*{
+    origin: ["https://patrick-web.vercel.app/"],
+    methods: ["GET", "POST"],
+    credentials: true,
+}*/
+
+const PORT = process.env.PORT || 5454; // Provide a default port
 const MONGODB = process.env.MONGODB_URL;
 const apiKey = process.env.GEMINI_API_KEY;
 const genAI = new GoogleGenerativeAI(apiKey);
