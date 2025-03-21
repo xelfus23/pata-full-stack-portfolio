@@ -9,11 +9,14 @@ import { Message } from "./models/messageModel.js";
 import { Chat } from "./models/chatModel.js";
 import { modelInstructions } from "./modelInstructions.js";
 import { GoogleGenerativeAI } from "@google/generative-ai";
-
 dotenv.config();
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(
+    cors({
+        origin: [""],
+    })
+);
 
 /*{
     origin: ["https://patrick-web.vercel.app/"],

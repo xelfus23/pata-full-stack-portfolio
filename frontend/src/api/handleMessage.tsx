@@ -16,7 +16,7 @@ export const SendMessage = async (
         };
         axios.defaults.withCredentials = false;
         axios
-            .post(`${URL}messages`, data)
+            .post(`${URL}/messages`, data)
             .then((res) => {
                 console.log(res);
             })

@@ -110,7 +110,7 @@ const ChatBox: React.FC = () => {
                 try {
                     // Load existing session
                     const response = await axios.get(
-                        `${URL}sessions/${savedSessionId}`
+                        `${URL}/sessions/${savedSessionId}`
                     );
                     setSessionId(savedSessionId);
 
@@ -141,7 +141,7 @@ const ChatBox: React.FC = () => {
 
         const createNewSession = async () => {
             try {
-                const response = await axios.post(`${URL}sessions`);
+                const response = await axios.post(`${URL}/sessions`);
                 const newSessionId = response.data.session._id;
                 setSessionId(newSessionId);
                 localStorage.setItem("chatSessionId", newSessionId);
@@ -176,7 +176,7 @@ const ChatBox: React.FC = () => {
             setMessages((prev) => [...prev, newMessage]);
 
             await axios
-                .post(`${URL}chats`, {
+                .post(`${URL}/chats`, {
                     sessionId: sessionId,
                     role: "user",
                     message: newInput,

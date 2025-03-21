@@ -13,7 +13,7 @@ export const HandleLogin = async (username: string, password: string) => {
             password: password,
         } as userType;
         axios
-            .get<userType>(`${URL}user`, {
+            .get<userType>(`${URL}/user`, {
                 params: data,
             })
             .then((res) => {
