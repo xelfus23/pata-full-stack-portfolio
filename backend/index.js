@@ -1,19 +1,17 @@
-// backend/index.js
-import { GoogleGenerativeAI } from "@google/generative-ai";
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import * as dotenv from "dotenv";
-import bcrypt from "bcrypt"; // Import bcrypt
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"; // Import jsonwebtoken
 import { User } from "./models/userModel.js";
 import { Message } from "./models/messageModel.js";
 import { Chat } from "./models/chatModel.js";
 import { modelInstructions } from "./modelInstructions.js";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 dotenv.config();
 const app = express();
-
 app.use(express.json());
 app.use(cors());
 
