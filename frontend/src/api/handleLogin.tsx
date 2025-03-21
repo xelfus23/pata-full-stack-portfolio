@@ -1,3 +1,4 @@
+import { URL } from "@/constant/url";
 import axios from "axios";
 
 type userType = {
@@ -12,7 +13,7 @@ export const HandleLogin = async (username: string, password: string) => {
             password: password,
         } as userType;
         axios
-            .get<userType>(`${process.env.NEXT_PUBLIC_URL}user`, {
+            .get<userType>(`${URL}user`, {
                 params: data,
             })
             .then((res) => {

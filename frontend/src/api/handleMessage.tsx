@@ -1,3 +1,4 @@
+import { URL } from "@/constant/url";
 import axios from "axios";
 
 export const SendMessage = async (
@@ -13,9 +14,9 @@ export const SendMessage = async (
             company,
             message,
         };
-        axios.defaults.withCredentials = true;
+        axios.defaults.withCredentials = false;
         axios
-            .post(`${process.env.NEXT_PUBLIC_URL}messages`, data)
+            .post(`${URL}messages`, data)
             .then((res) => {
                 console.log(res);
             })

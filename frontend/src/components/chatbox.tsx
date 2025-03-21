@@ -5,6 +5,7 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import { move } from "@/animations/animations";
 import axios from "axios";
 import DotLoading from "./ui/loading/dotLoading";
+import { URL } from "@/constant/url";
 
 type MessageType = {
     role: string;
@@ -90,13 +91,15 @@ const ChatBox: React.FC = () => {
             id: "1",
         },
     ]);
-    axios.defaults.withCredentials = true;
+    axios.defaults.withCredentials = false;
 
     useEffect(() => {
         if (messageRef.current) {
             messageRef.current.scrollTop = messageRef.current.scrollHeight;
         }
-    }, [messages]);
+    }, [messages, visible]);
+
+    console.log("URL: ", URL);
 
     useEffect(() => {
         const loadSession = async () => {
@@ -107,7 +110,7 @@ const ChatBox: React.FC = () => {
                 try {
                     // Load existing session
                     const response = await axios.get(
-                        `${process.env.NEXT_PUBLIC_URL}sessions/${savedSessionId}`
+                        `${URL}sessions/${savedSessionId}`
                     );
                     setSessionId(savedSessionId);
 
@@ -138,9 +141,7 @@ const ChatBox: React.FC = () => {
 
         const createNewSession = async () => {
             try {
-                const response = await axios.post(
-                    `${process.env.NEXT_PUBLIC_URL}sessions`
-                );
+                const response = await axios.post(`${URL}sessions`);
                 const newSessionId = response.data.session._id;
                 setSessionId(newSessionId);
                 localStorage.setItem("chatSessionId", newSessionId);
@@ -175,7 +176,7 @@ const ChatBox: React.FC = () => {
             setMessages((prev) => [...prev, newMessage]);
 
             await axios
-                .post(`${process.env.NEXT_PUBLIC_URL}chats`, {
+                .post(`${URL}chats`, {
                     sessionId: sessionId,
                     role: "user",
                     message: newInput,

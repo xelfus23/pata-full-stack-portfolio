@@ -1,0 +1,1 @@
+export const URL = "https://patrick-web.vercel.app/";

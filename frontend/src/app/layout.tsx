@@ -8,7 +8,6 @@ import { Analytics } from "@vercel/analytics/react";
 import ScrollToTop from "@/components/scrolltoTop";
 import CursorFollower from "@/components/ui/cursor";
 import { LayoutWrapper } from "@/components/layoutWrapper";
-import axios from "axios";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,8 +22,6 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    axios.defaults.withCredentials = true;
-
     return (
         <html lang="en" className="scroll-smooth">
             <Analytics />
