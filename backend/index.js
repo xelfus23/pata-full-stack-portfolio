@@ -14,22 +14,12 @@ const app = express();
 app.use(express.json());
 app.use(
     cors({
-        origin: [
-            "https://patrick-web.vercel.app",
-            "https://pata-full-stack-portfolio.vercel.app",
-            "https://pata-1fxe4olip-xelfus-projects.vercel.app",
-            "https://pata-web-git-main-xelfus-projects.vercel.app",
-        ],
-        methods: ["GET", "POST"],
+        origin: process.env.ALLOWED_ORIGINS.split(","),
+        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         credentials: true,
+        allowedHeaders: ["Content-Type", "Authorization"],
     })
 );
-
-/*{
-    origin: ["https://patrick-web.vercel.app/"],
-    methods: ["GET", "POST"],
-    credentials: true,
-}*/
 
 const PORT = process.env.PORT || 4040; // Provide a default port
 const MONGODB = process.env.MONGODB_URL;
