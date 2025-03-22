@@ -12,7 +12,13 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 dotenv.config();
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(
+    cors({
+        origin: ["https://patrick-web.vercel.app/"],
+        methods: ["GET", "POST"],
+        credentials: true,
+    })
+);
 
 /*{
     origin: ["https://patrick-web.vercel.app/"],
