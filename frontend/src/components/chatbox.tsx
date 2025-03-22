@@ -99,8 +99,6 @@ const ChatBox: React.FC = () => {
         }
     }, [messages, visible]);
 
-    console.log("URL: ", URL);
-
     useEffect(() => {
         const loadSession = async () => {
             // Try to get session from localStorage
