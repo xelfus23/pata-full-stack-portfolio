@@ -186,15 +186,61 @@ app.put("/users/:id", verifyToken, async (req, res) => {
     }
 });
 
-app.get("/users", async (req, res) => {
+// **NEW** Add a function to check if a user is an admin (or has the required role)
+const isAdmin = async (userId) => {
     try {
-        const users = await User.find({});
-        return res.status(200).send({ message: users });
+        const user = await User.findById(userId);
+        // Adjust this based on how you store roles (e.g., user.role === 'admin')
+        return user && user.isAdmin === true; //Assumes you have an "isAdmin" boolean field in your User model
+    } catch (error) {
+        console.error("Error checking admin status:", error);
+        return false; // Treat errors as "not admin" for safety
+    }
+};
+
+// **NEW** Middleware to check if a user is an admin
+const verifyAdmin = async (req, res, next) => {
+    if (!req.userId) {
+        return res
+            .status(401)
+            .json({ message: "Unauthorized: Missing user ID." });
+    }
+
+    const admin = await isAdmin(req.userId);
+    if (!admin) {
+        return res
+            .status(403)
+            .json({ message: "Forbidden: Insufficient privileges." });
+    }
+    next();
+};
+
+// ** MODIFIED /users route**
+app.get("/users", verifyToken, verifyAdmin, async (req, res) => {
+    // Added middleware
+    try {
+        //**NEW** Only fetch users if the requester is an admin
+
+        //**NEW** Project the data to exclude sensitive fields
+        const users = await User.find({}).select(
+            "-password -__v -createdAt -updatedAt"
+        ); // Exclude password, version key, and timestamps
+
+        //**NEW** Return only essential user data
+        const userList = users.map((user) => ({
+            _id: user._id,
+            username: user.username,
+            // Add other *necessary* fields here (e.g., email, registrationDate)
+        }));
+
+        return res
+            .status(200)
+            .json({ message: "Users fetched successfully", users: userList }); // Return the filtered list
     } catch (err) {
         console.error(err);
-        return res.status(500).send({
-            message: "Server Error" + err.message,
-        });
+        return res
+            .status(500)
+            .json({ message: "Server Error: " + err.message });
     }
 });
 
