@@ -15,10 +15,10 @@ app.use(express.json());
 app.use(
     cors({
         origin: [
-            "https://patrick-web.vercel.app/",
-            "https://pata-full-stack-portfolio.vercel.app/",
-            "https://pata-1fxe4olip-xelfus-projects.vercel.app/",
-            "https://pata-web-git-main-xelfus-projects.vercel.app/",
+            "https://patrick-web.vercel.app",
+            "https://pata-full-stack-portfolio.vercel.app",
+            "https://pata-1fxe4olip-xelfus-projects.vercel.app",
+            "https://pata-web-git-main-xelfus-projects.vercel.app",
         ],
         methods: ["GET", "POST"],
         credentials: true,
