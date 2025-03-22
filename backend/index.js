@@ -20,7 +20,7 @@ app.use(cors());
     credentials: true,
 }*/
 
-const PORT = process.env.PORT || 5454; // Provide a default port
+const PORT = process.env.PORT || 4040; // Provide a default port
 const MONGODB = process.env.MONGODB_URL;
 const apiKey = process.env.GEMINI_API_KEY;
 const genAI = new GoogleGenerativeAI(apiKey);
