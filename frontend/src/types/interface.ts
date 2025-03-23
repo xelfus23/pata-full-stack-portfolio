@@ -31,4 +31,5 @@ export interface InputProps {
     required: boolean;
     error: string | null;
     className?: string;
+    spellCheck?: boolean;
 }

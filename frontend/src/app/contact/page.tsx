@@ -348,7 +348,7 @@ const Contact = () => {
                                 error.message
                                     ? "bg-red-400/5 border border-red-400/20 focus:ring-red-400/50"
                                     : "bg-secondary/5 border border-secondary/20 focus:ring-primary/50"
-                            } rounded-md focus:outline-none focus:ring-2  focus:border-transparent text-text resize-none`}
+                            } rounded-md focus:outline-none focus:ring-2 focus:border-transparent text-text resize-none`}
                             placeholder="Tell me about your project or opportunity!"
                             value={formValue.message}
                             onChange={(e) =>
@@ -363,16 +363,20 @@ const Contact = () => {
                             initial={"initial"}
                             animate="animate"
                             custom={{ from: "right", delay: 1.5 }} // Pass the object
+                            className="flex items-center relative"
                         >
-                            <motion.div>
+                            <motion.div className="relative flex">
                                 <PrimaryButton
                                     label={
                                         loading
                                             ? "Sending please wait..."
+                                            : success
+                                            ? "Message Sent"
                                             : "Send message"
                                     }
                                     onClick={() => handleSubmit}
                                     type="submit"
+                                    success={success}
                                     // error={
                                     //     error.company ||
                                     //     error.email ||
@@ -387,20 +391,24 @@ const Contact = () => {
                             </motion.div>
                         </motion.div>
 
-                        <p className="text-green-300 text-center text-sm">
+                        {success && (
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="24"
                                 height="24"
                                 viewBox="0 0 24 24"
                                 fill="none"
-                                stroke="currentColor"
+                                stroke={"#5fF25f"}
                                 strokeWidth="2"
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
+                                className=""
                             >
                                 <path d="M20 6 9 17l-5-5" />
                             </svg>
+                        )}
+
+                        <p className="text-green-300 text-center text-sm">
                             {success &&
                                 "Thanks for your message, I'll get back to you soon!"}
                         </p>

@@ -275,6 +275,7 @@ const ChatBox: React.FC<types> = ({ setLenisState }) => {
                                             onChange={setValue}
                                             error={error}
                                             value={input}
+                                            spellCheck={false}
                                         />
                                     </div>
                                     <button
