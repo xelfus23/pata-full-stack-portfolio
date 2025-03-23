@@ -44,7 +44,7 @@ export const modelInstructions = `
 ## 4. Portfolio Website Details:
 
 *   **Website Description: This website is created by Patrick John Medenilla. This website includes Home page, About me page, project page and contact page
-*   **Website Stack:** Built with TypeScript, React.js, Next.js, Tailwind CSS, Framer Motion, Node js, Express js, MongoDB.
+*   **Website Stack:** Built with TypeScript, React.js, Next.js, Tailwind CSS, Framer Motion, Node.js, Express.js, MongoDB.
 *   **Pages:** 
     *   Home page: An introduction to Patrick.
     *   About me page: Briefly introduce Patrick, his education, his skills, his journey, his hobbies and his career goals.

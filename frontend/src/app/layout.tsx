@@ -7,6 +7,7 @@ import React from "react";
 import { Analytics } from "@vercel/analytics/react";
 import ScrollToTop from "@/components/scrolltoTop";
 import { LayoutWrapper } from "@/components/layoutWrapper";
+import Lenis from "lenis/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,6 +25,13 @@ export default function RootLayout({
     return (
         <html lang="en" className="scroll-smooth">
             <Analytics />
+            <Lenis
+                options={{
+                    duration: 2,
+                    smoothWheel: true,
+                }}
+                root
+            />
             <ScrollToTop>
                 <CursorProvider>
                     <body
