@@ -29,7 +29,7 @@ const About: React.FC = () => {
                     onHoverEnd={() => setCursorState({ scale: 0.5 })}
                     className="z-10"
                 >
-                    <div className="aspect-square rounded-2xl overflow-hidden relative bg-gradient-to-br from-primary/20 to-secondary/20">
+                    <div className="cursor-crosshair aspect-square rounded-2xl overflow-hidden relative bg-gradient-to-br from-primary/20 to-secondary/20">
                         {/* Replace with your image */}
                         <motion.div
                             animate={{
@@ -126,7 +126,6 @@ const About: React.FC = () => {
                             label="Learn more"
                             onClick={() => router.push("/about")}
                             type="button"
-                            
                         />
                     </div>
                 </motion.div>

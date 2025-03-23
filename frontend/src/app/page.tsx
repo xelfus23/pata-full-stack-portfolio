@@ -4,59 +4,31 @@ import Contact from "@/components/sections/homepage/contact";
 import Hero from "@/components/sections/homepage/hero";
 import Projects from "@/components/sections/homepage/projects";
 import GridBackground from "@/components/ui/gridBackground";
-import { useScroll } from "framer-motion";
-import { motion } from "framer-motion";
-import { useEffect } from "react";
+import SideBar from "@/components/ui/sideBar";
 
 export default function Home() {
-    const { scrollYProgress } = useScroll();
-
     const sections = [
-        { key: 1, component: <Hero /> },
         {
-            key: 2,
+            component: <Hero />,
+            id: "hero",
+        },
+        {
             component: <About />,
+            id: "about",
         },
         {
-            key: 4,
             component: <Projects />,
+            id: "projects",
         },
         {
-            key: 5,
             component: <Contact />,
+            id: "contact",
         },
     ];
 
-    useEffect(() => {
-        console.log(scrollYProgress);
-    }, [scrollYProgress]);
     return (
         <main className="scroll-smooth overflow-y-hidden relative">
-            <div className="fixed right-4 top-1/2 transform bg-secondary/20 p-2 rounded-full -translate-y-1/2 z-50 hidden md:flex flex-col gap-3">
-                {["hero", "about", "projects", "contact"].map(
-                    (section, index) => (
-                        <motion.div
-                            key={section}
-                            className="w-4 aspect-square rounded-full bg-accent cursor-pointer"
-                            style={{
-                                opacity:
-                                    scrollYProgress.get() * (index + 1) >
-                                    0.2 * (index + 1)
-                                        ? 1
-                                        : 0.4,
-                            }}
-                            whileHover={{
-                                scale: 1.5,
-                            }}
-                            onClick={() =>
-                                document
-                                    .getElementById(section)
-                                    ?.scrollIntoView({ behavior: "smooth" })
-                            }
-                        />
-                    )
-                )}
-            </div>
+            <SideBar sections={sections} />
 
             {sections.map((v, i) => (
                 <div className="min-h-screen z-0" key={i}>

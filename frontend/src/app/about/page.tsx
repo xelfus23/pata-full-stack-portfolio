@@ -2,31 +2,34 @@
 import React, { useEffect } from "react";
 import HeroSection from "../../components/sections/aboutpage/hero";
 import MyStory from "../../components/sections/aboutpage/myStory";
-// import EducationExperience from "./components/educationExperience";
 import PersonalInterests from "../../components/sections/aboutpage/personalInterest";
 import Head from "next/head";
 import Skills from "../../components/ui/skills";
 import GridBackground from "@/components/ui/gridBackground";
-// import Roadmap from "./components/roadmap";
 import { usePathname } from "next/navigation";
+import SideBar from "@/components/ui/sideBar";
 
 const AboutPage = () => {
     const sections = [
         {
             key: 1,
             component: <HeroSection />,
+            id: "hero",
         },
         {
             key: 2,
             component: <MyStory />,
+            id: "my-journey",
         },
         {
             key: 4,
             component: <Skills />,
+            id: "skills",
         },
         {
             key: 6,
             component: <PersonalInterests />,
+            id: "personal-interest",
         },
     ];
 
@@ -37,7 +40,7 @@ const AboutPage = () => {
     }, [pathname]);
 
     return (
-        <div className=" text-text pt-16 relative overflow-y-hidden">
+        <main className="scroll-smooth overflow-y-hidden relative">
             <Head>
                 <title>About Me - Patrick John Medenilla</title>
                 <meta
@@ -45,11 +48,14 @@ const AboutPage = () => {
                     content="Learn more about Patrick John Medenilla's journey, skills, and passion for web development."
                 />
             </Head>
+
             {sections.map((v, i) => (
                 <div className="z-0" key={i}>
                     {v.component}
                 </div>
             ))}
+
+            <SideBar sections={sections} />
 
             <div className="absolute h-fit w-full top-0 -z-10">
                 {Array(sections.length)
@@ -58,7 +64,7 @@ const AboutPage = () => {
                         <GridBackground key={i} />
                     ))}
             </div>
-        </div>
+        </main>
     );
 };
 

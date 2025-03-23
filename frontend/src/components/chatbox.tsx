@@ -1,5 +1,5 @@
 import { primary, secondary } from "@/constant/colors";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Input from "./ui/inputs/input";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { move } from "@/animations/animations";
@@ -87,7 +87,7 @@ const ChatBox: React.FC = () => {
     const [messages, setMessages] = useState<MessageType[]>([
         {
             role: "bot",
-            message: "Hello! How can I help you?",
+            message: `Hello there! How can I help you? \n \n You can ask me something like "Can you tell me more about Patrick?".`,
             id: "1",
         },
     ]);
@@ -189,7 +189,9 @@ const ChatBox: React.FC = () => {
 
                     setMessages((prev) => [...prev, newAIMessage]);
                 })
-                .catch((error) => console.log(error.message));
+                .catch((error) => {
+                    throw new Error(error.message);
+                });
         } catch (err) {
             console.error(err);
         } finally {
@@ -207,79 +209,92 @@ const ChatBox: React.FC = () => {
 
     return (
         <div className="fixed items-center md:block flex justify-center w-screen h-screen pointer-events-none z-40 ">
-            <motion.div
-                style={{
-                    display: visible ? "block" : "none",
-                }}
-                variants={move}
-                initial={"initial"}
-                animate={"animate"}
-                custom={{ from: "right", delay: 1 }}
-                className="absolute sm:hidden md:block md:bottom-10 md:w-auto bottom-20 md:right-15 pointer-events-auto w-fit flex"
-            >
-                <form
-                    onSubmit={handleSubmit}
-                    className="border p-4 h-full border-secondary/20 bg-secondary/10 backdrop-blur-md w-auto rounded-2xl space-y-4 md:min-w-120 max-w-120"
-                >
-                    <h1 className="text-xl">Chat Assistant</h1>
-                    <div
-                        ref={messageRef}
-                        className="overflow-y-scroll p-2 rounded-xl h-150 space-y-4 scrollbar-thin"
-                    >
-                        {messages.map((message, index) => (
-                            <ChatBubble
-                                id={message.id}
-                                key={index}
-                                message={message.message}
-                                role={message.role}
-                            />
-                        ))}
-                        {loading && (
-                            <div className={`w-full flex justify-start`}>
-                                <div className="border border-primary/20 bg-secondary/10 rounded-xl max-w-[80%] p-4 items-center flex justify-center">
-                                    <DotLoading />
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                    <div className="flex items-center space-x-4 justify-between w-full">
-                        <div className="w-full">
-                            <Input
-                                type="text"
-                                placeholder="Type your message..."
-                                required={false}
-                                id="message"
-                                onChange={setValue}
-                                error={error}
-                                value={input}
-                            />
-                        </div>
-                        <button
-                            type="submit"
-                            className="hover:cursor-pointer col-span-1"
+            <AnimatePresence mode="wait">
+                {visible && (
+                    <div className="z-50">
+                        <motion.div
+                            variants={move}
+                            initial={"initial"}
+                            animate={"animate"}
+                            exit={{
+                                opacity: 0,
+                                x: 20,
+                            }}
+                            transition={{
+                                duration: 0.2,
+                                delay: 0,
+                            }}
+                            custom={{ from: "right", delay: 1 }}
+                            className="absolute sm:hidden md:block md:bottom-10 md:w-auto bottom-20 md:right-15 pointer-events-auto w-fit flex"
                         >
-                            <motion.svg
-                                whileHover={{
-                                    opacity: 1,
-                                }}
-                                initial={{ opacity: 0.5 }}
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="35"
-                                height="35"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
+                            <form
+                                onSubmit={handleSubmit}
+                                className="border p-4 h-full border-secondary/20 bg-secondary/10 backdrop-blur-md w-auto rounded-2xl space-y-4 md:min-w-120 max-w-120"
                             >
-                                <path d="M3.714 3.048a.498.498 0 0 0-.683.627l2.843 7.627a2 2 0 0 1 0 1.396l-2.842 7.627a.498.498 0 0 0 .682.627l18-8.5a.5.5 0 0 0 0-.904z" />
-                                <path d="M6 12h16" />
-                            </motion.svg>
-                        </button>
+                                <h1 className="text-xl">Chat Assistant</h1>
+                                <div
+                                    ref={messageRef}
+                                    className="overflow-y-scroll p-2 rounded-xl h-150 space-y-4 scrollbar-thin"
+                                >
+                                    {messages.map((message, index) => (
+                                        <ChatBubble
+                                            id={message.id}
+                                            key={index}
+                                            message={message.message}
+                                            role={message.role}
+                                        />
+                                    ))}
+                                    {loading && (
+                                        <div
+                                            className={`w-full flex justify-start`}
+                                        >
+                                            <div className="border border-primary/20 bg-secondary/10 rounded-xl max-w-[80%] p-4 items-center flex justify-center">
+                                                <DotLoading />
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="flex items-center space-x-4 justify-between w-full">
+                                    <div className="w-full">
+                                        <Input
+                                            type="text"
+                                            placeholder="Type your message..."
+                                            required={false}
+                                            id="message"
+                                            onChange={setValue}
+                                            error={error}
+                                            value={input}
+                                        />
+                                    </div>
+                                    <button
+                                        type="submit"
+                                        className="hover:cursor-pointer col-span-1"
+                                    >
+                                        <motion.svg
+                                            whileHover={{
+                                                opacity: 1,
+                                            }}
+                                            initial={{ opacity: 0.5 }}
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="35"
+                                            height="35"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            strokeWidth="2"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        >
+                                            <path d="M3.714 3.048a.498.498 0 0 0-.683.627l2.843 7.627a2 2 0 0 1 0 1.396l-2.842 7.627a.498.498 0 0 0 .682.627l18-8.5a.5.5 0 0 0 0-.904z" />
+                                            <path d="M6 12h16" />
+                                        </motion.svg>
+                                    </button>
+                                </div>
+                            </form>
+                        </motion.div>
                     </div>
-                </form>
-            </motion.div>
+                )}
+            </AnimatePresence>
             <motion.svg
                 whileHover={{
                     scale: 1.2,

@@ -26,7 +26,7 @@ const Hero: React.FC = () => {
                     }}
                     className="max-w-3xl mx-auto text-center"
                 >
-                    <motion.div
+                    <motion.h1
                         initial={{ opacity: 0, y: 20 }}
                         animate={{
                             opacity: 1,
@@ -35,25 +35,18 @@ const Hero: React.FC = () => {
                         transition={{ duration: 0.5 }}
                         onMouseOver={() => setCursorState({ scale: 2 })}
                         onMouseLeave={() => setCursorState({ scale: 0.5 })}
+                        className="text-4xl md:text-6xl font-bold mb-6 cursor-default"
                     >
-                        <motion.h1
-                            // animate={{ y: scroll }}
-                            transition={{
-                                duration: 0.3,
-                            }}
-                            className="text-4xl md:text-6xl font-bold mb-6 pointer-events-none"
-                        >
-                            <span className="text-text">Hi, I&apos;m </span>
-                            <span className="text-primary">
-                                {useWritingAnimation(
-                                    "Patrick John",
-                                    2,
-                                    0.02,
-                                    false
-                                )}
-                            </span>
-                        </motion.h1>
-                    </motion.div>
+                        <span className="text-text">Hi, I&apos;m </span>
+                        <span className="text-primary">
+                            {useWritingAnimation(
+                                "Patrick John",
+                                2,
+                                0.02,
+                                false
+                            )}
+                        </span>
+                    </motion.h1>
 
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}

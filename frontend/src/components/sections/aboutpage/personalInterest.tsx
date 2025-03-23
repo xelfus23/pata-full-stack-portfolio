@@ -33,7 +33,7 @@ const PersonalInterests = () => {
                         return updatedParagraphs;
                     });
                     setLetterIndex((prevLetterIndex) => prevLetterIndex + 1);
-                }, 50); // Adjust timing as needed
+                }, 20); // Adjust timing as needed
 
                 return () => clearTimeout(timer);
             } else {
@@ -50,7 +50,7 @@ const PersonalInterests = () => {
     }, [fullText, paragraphIndex, letterIndex, isInView]);
 
     return (
-        <Section id="personal-interest" title="Beyond Code" className="min-h-1/2" subtitle="A peek into my life outside coding">
+        <Section id="personal-interest" title="Beyond Code" className="min-h-screen" subtitle="A peek into my life outside coding">
             <div
                 ref={sectionRef}
                 className="container mx-auto space-y-10 flex flex-col items-center"

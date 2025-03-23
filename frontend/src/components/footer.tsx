@@ -94,14 +94,14 @@ const Footer: React.FC<footerProps> = () => {
 
     const navLinks = [
         { name: "Home", path: "/" },
-        { name: "About", path: "/about" },
-        { name: "Projects", path: "/projects" },
+        { name: "About me", path: "/about" },
+        { name: "My Projects", path: "/projects" },
         { name: "Contact", path: "/contact" },
-        { name: "UI Kit", path: "/library" },
+        // { name: "UI Kit", path: "/library" },
     ];
 
     return (
-        <footer className="bg-background border-t border-secondary/20 pt-12 pb-6">
+        <footer className="bg-background border-t border-secondary/20 pt-12 pb-6 z-30">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="grid md:grid-cols-3 gap-8 mb-8">
                     <div>
@@ -167,7 +167,7 @@ const Footer: React.FC<footerProps> = () => {
                             Open for opportunities. Let&apos;s work together!
                         </p>
                         <a
-                            href="patrick.medenilla23@gmail.com"
+                            href="mailto:patrick.medenilla23@gmail.com"
                             className="text-primary hover:text-primary/80 transition-colors duration-300"
                         >
                             patrick.medenilla23@gmail.com

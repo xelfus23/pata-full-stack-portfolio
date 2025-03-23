@@ -2,6 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useWritingAnimation } from "@/hooks/useWritingAnimation";
+import { useCursorState } from "@/utils/cursorProvider";
 
 interface SectionProps {
     id?: string;
@@ -18,6 +19,7 @@ const Section = ({
     children,
     className = "",
 }: SectionProps) => {
+    const { setCursorState } = useCursorState();
     return (
         <section
             id={id}
@@ -31,7 +33,11 @@ const Section = ({
                     transition={{ duration: 0.6 }}
                     className="mb-12 text-center"
                 >
-                    <h2 className="text-3xl md:text-4xl font-bold mb-4 inline-block ">
+                    <h2
+                        className="text-3xl md:text-4xl font-bold mb-4 inline-block "
+                        onMouseOver={() => setCursorState({ scale: 1.1 })}
+                        onMouseLeave={() => setCursorState({ scale: 0.5 })}
+                    >
                         <span className="text-text pointer-events-none">
                             {title}
                         </span>

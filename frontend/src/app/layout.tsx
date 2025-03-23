@@ -6,7 +6,6 @@ import { CursorProvider } from "@/utils/cursorProvider";
 import React from "react";
 import { Analytics } from "@vercel/analytics/react";
 import ScrollToTop from "@/components/scrolltoTop";
-import CursorFollower from "@/components/ui/cursor";
 import { LayoutWrapper } from "@/components/layoutWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -30,7 +29,6 @@ export default function RootLayout({
                     <body
                         className={`${inter.className} bg-background text-text scrollbar-hidden`}
                     >
-                        <CursorFollower lag={0.05} />
                         <LayoutWrapper>{children}</LayoutWrapper>
                     </body>
                 </CursorProvider>

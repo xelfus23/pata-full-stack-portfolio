@@ -29,7 +29,7 @@ const Navbar: React.FC = () => {
         () => [
             { name: "Home", path: "/" },
             { name: "About Me", path: "/about" },
-            { name: "Projects", path: "/projects" },
+            { name: "My Projects", path: "/projects" },
             { name: "Contact", path: "/contact" },
             // { name: "Docs", path: "/library" },
         ],
@@ -74,7 +74,7 @@ const Navbar: React.FC = () => {
             style={{
                 transform: `-translateY(${scroll * 0.5}px)`,
             }}
-            className="w-full z-40 absolute"
+            className="w-full z-30 absolute"
         >
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16">
