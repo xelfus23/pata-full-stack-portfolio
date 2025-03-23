@@ -87,7 +87,7 @@ const ChatBox: React.FC = () => {
     const [messages, setMessages] = useState<MessageType[]>([
         {
             role: "bot",
-            message: `Hello there! How can I help you? \n \n You can ask me something like "Can you tell me more about Patrick?".`,
+            message: `Hi there! I'm Patrick's chatbot assistant. I can answer questions about Patrick. What would you like to know? For example, you could ask, "Can you tell me more about Patrick?"`,
             id: "1",
         },
     ]);
