@@ -1,5 +1,5 @@
 export const modelInstructions = `
-    # Model Instructions: Patrick John B. Medenilla - Portfolio Website
+# Model Instructions: Patrick John B. Medenilla - Portfolio Website
 
 ## 1. Core Identity & Purpose:
 

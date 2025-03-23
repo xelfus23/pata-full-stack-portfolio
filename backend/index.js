@@ -9,17 +9,21 @@ import { Message } from "./models/messageModel.js";
 import { Chat } from "./models/chatModel.js";
 import { modelInstructions } from "./modelInstructions.js";
 import { GoogleGenerativeAI } from "@google/generative-ai";
+import { Instruction } from "./models/instructionsModel.js";
 dotenv.config();
 const app = express();
 app.use(express.json());
-app.use(
-    cors({
-        origin: process.env.ALLOWED_ORIGINS.split(","),
-        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        credentials: true,
-        allowedHeaders: ["Content-Type", "Authorization"],
-    })
-);
+
+app.use(cors());
+
+// app.use(
+//     cors({
+//         origin: process.env.ALLOWED_ORIGINS.split(","),
+//         methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+//         credentials: true,
+//         allowedHeaders: ["Content-Type", "Authorization"],
+//     })
+// );
 
 const PORT = process.env.PORT || 4040; // Provide a default port
 const MONGODB = process.env.MONGODB_URL;
@@ -49,8 +53,65 @@ const generateToken = (user) => {
     });
 };
 
+app.get("/api/get-gemini-instructions", async (req, res) => {
+    try {
+        const activeInstructions = await Instruction.findOne({
+            active: true,
+        }).sort({ version: -1 });
+
+        if (!activeInstructions) {
+            return res
+                .status(404)
+                .json({ message: "No active Gemini instructions found" });
+        }
+
+        res.json({ instructionString: activeInstructions.instructionString }); // Send the string
+    } catch (error) {
+        console.error("Error fetching instructions:", error);
+        res.status(500).json({
+            message: "Failed to fetch Gemini instructions",
+        });
+    }
+});
+
+app.post("/api/create-gemini-instructions", async (req, res) => {
+    console.log("Received Request"); // Add this line
+    try {
+        const { instructionString, version } = req.body; // Correct variable name
+
+        if (!instructionString || !version) {
+            return res
+                .status(400)
+                .json({ message: "Missing instructions or version." });
+        }
+
+        // 1. Deactivate any existing active instruction (optional but RECOMMENDED)
+        await Instruction.updateMany({ active: true }, { active: false });
+
+        // 2. Create a *new* instruction set
+        const newInstruction = new Instruction({
+            instructionString: instructionString,
+            version: version,
+            active: true, // Mark the new one as active
+        });
+
+        const savedInstruction = await newInstruction.save(); // Use .save() to create
+
+        res.status(201).json({
+            message: "Instructions created and activated.",
+            instruction: savedInstruction,
+        });
+    } catch (err) {
+        console.error("Error creating/updating instruction:", err);
+        res.status(500).json({
+            message: "Failed to create/update instruction.",
+            error: err.message,
+        }); // Include the error message for debugging
+    }
+});
+
 // ** 1. User Registration (Signup) **
-app.post("/register", async (req, res) => {
+app.post("/signup", async (req, res) => {
     try {
         const { username, password } = req.body;
 
@@ -101,9 +162,7 @@ app.post("/login", async (req, res) => {
                 .status(400)
                 .json({ message: "Missing username or password." });
         }
-
         const user = await User.findOne({ username });
-
         if (!user) {
             return res.status(401).json({ message: "Invalid credentials." }); // 401 Unauthorized
         }
