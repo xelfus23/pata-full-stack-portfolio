@@ -77,7 +77,11 @@ function formatGeminiResponse(response: string) {
     return formatted;
 }
 
-const ChatBox: React.FC = () => {
+interface types {
+    setLenisState: (v: boolean) => void;
+}
+
+const ChatBox: React.FC<types> = ({ setLenisState }) => {
     const [input, setInput] = useState("");
     const [error, setError] = useState<string | null>(null);
     const [visible, setVisible] = useState(false);
@@ -199,8 +203,13 @@ const ChatBox: React.FC = () => {
         }
     };
 
-    const toggleChatbox = () => {
-        setVisible(!visible);
+    const openChatbox = () => {
+        setVisible(true);
+    };
+
+    const closeChatBox = () => {
+        setLenisState(true);
+        setVisible(false);
     };
 
     const setValue = (id: string, value: string) => {
@@ -229,12 +238,14 @@ const ChatBox: React.FC = () => {
                         >
                             <form
                                 onSubmit={handleSubmit}
-                                className="border p-4 h-full border-secondary/20 bg-secondary/10 backdrop-blur-md w-auto rounded-2xl space-y-4 md:min-w-120 max-w-120"
+                                className="chatbox-form border p-4 h-full border-secondary/20 bg-secondary/10 backdrop-blur-md w-auto rounded-2xl space-y-4 md:min-w-120 max-w-120"
                             >
                                 <h1 className="text-xl">Chat Assistant</h1>
-                                <div
+                                <motion.div
                                     ref={messageRef}
-                                    className="overflow-y-scroll p-2 rounded-xl h-150 space-y-4 scrollbar-thin"
+                                    className="chat-messages-container overflow-y-scroll p-2 rounded-xl h-150 space-y-4 scrollbar-thin"
+                                    onHoverStart={() => setLenisState(false)}
+                                    onHoverEnd={() => setLenisState(true)}
                                 >
                                     {messages.map((message, index) => (
                                         <ChatBubble
@@ -253,7 +264,7 @@ const ChatBox: React.FC = () => {
                                             </div>
                                         </div>
                                     )}
-                                </div>
+                                </motion.div>
                                 <div className="flex items-center space-x-4 justify-between w-full">
                                     <div className="w-full">
                                         <Input
@@ -302,7 +313,7 @@ const ChatBox: React.FC = () => {
                     stroke: primary,
                     fill: secondary,
                 }}
-                onClick={toggleChatbox}
+                onClick={visible ? closeChatBox : openChatbox}
                 whileTap={{
                     scale: 1.2,
                     opacity: 0.8,

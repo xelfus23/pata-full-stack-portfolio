@@ -13,7 +13,7 @@ const Contact: React.FC = () => {
             title="Contact Me"
             subtitle="Get in touch for collaborations or inquiries"
         >
-            <div className="grid md:grid-cols-2 gap-12">
+            <div className="grid md:grid-cols-2 min-h-screen gap-12">
                 <motion.div
                     initial={{ opacity: 0, x: -50 }}
                     whileInView={{ opacity: 1, x: 0 }}
