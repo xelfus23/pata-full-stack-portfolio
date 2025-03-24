@@ -1,4 +1,4 @@
-import express from "express";
+import express, { response } from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import * as dotenv from "dotenv";
@@ -13,16 +13,16 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-// app.use(cors());
+app.use(cors());
 
-app.use(
-    cors({
-        origin: process.env.ALLOWED_ORIGINS.split(","),
-        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        credentials: true,
-        allowedHeaders: ["Content-Type", "Authorization"],
-    })
-);
+// app.use(
+//     cors({
+//         origin: process.env.ALLOWED_ORIGINS.split(","),
+//         methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+//         credentials: true,
+//         allowedHeaders: ["Content-Type", "Authorization"],
+//     })
+// );
 
 const PORT = process.env.PORT || 4040;
 const MONGODB = process.env.MONGODB_URL;
@@ -311,37 +311,39 @@ app.post("/sessions", async (req, res) => {
 
 // Update your existing endpoint to add messages to a session
 app.post("/chats", async (req, res) => {
+    console.log("Got Response");
+
     try {
-        const modelInstructions = app.get(
-            "/api/get-gemini-instructions",
-            async (req, res) => {
-                try {
-                    const activeInstructions = await Instruction.findOne({
-                        active: true,
-                    }).sort({ version: -1 });
+        // 1. Fetch the Gemini instructions directly
+        let modelInstructions;
+        try {
+            const activeInstructions = await Instruction.findOne({
+                active: true,
+            }).sort({ version: -1 });
 
-                    if (!activeInstructions) {
-                        return res.status(404).json({
-                            message: "No active Gemini instructions found",
-                        });
-                    }
-
-                    return activeInstructions.instructionString;
-                } catch (error) {
-                    console.error("Error fetching instructions:", error);
-                    res.status(500).json({
-                        message: "Failed to fetch Gemini instructions",
-                    });
-                }
+            if (!activeInstructions) {
+                return res.status(400).send({
+                    message: "No active Gemini instructions found. Please set up instructions first.",
+                });
             }
-        );
 
-        if (!modelInstructions) {
-            return res.status(400).send({
-                message: "An Error has occured. please try again later",
+            modelInstructions = activeInstructions.instructionString;
+        } catch (error) {
+            console.error("Error fetching instructions:", error);
+            return res.status(500).send({
+                message: "Failed to fetch Gemini instructions from the database.",
             });
         }
 
+        console.log("Model Instructions:", modelInstructions);
+
+        if (!modelInstructions) {
+            return res.status(400).send({
+                message: "An error occurred. Please try again later.",
+            });
+        }
+
+        // 2.  Now that you have the instructions, create the Gemini model
         const model = genAI.getGenerativeModel({
             model: "gemini-2.0-flash",
             systemInstruction: modelInstructions,
