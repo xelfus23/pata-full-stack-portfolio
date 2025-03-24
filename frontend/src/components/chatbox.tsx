@@ -6,7 +6,6 @@ import { move } from "@/animations/animations";
 import axios from "axios";
 import DotLoading from "./ui/loading/dotLoading";
 import { URL } from "@/constant/url";
-import Image from "next/image";
 
 type MessageType = {
     role: string;
@@ -240,11 +239,11 @@ const ChatBox: React.FC<types> = ({ setLenisState }) => {
                             onSubmit={handleSubmit}
                             className="chatbox-form border p-4 h-full border-secondary/20 bg-secondary/10 backdrop-blur-md w-auto rounded-2xl space-y-4 md:min-w-120 max-w-120"
                         >
-                            <div className="flex items-center space-x-5">
+                            <div className="flex items-center space-x-5 py-2">
                                 <div className="items-center justify-center flex w-5">
                                     <div className="animate-ping absolute w-5 aspect-square border border-primary/10 rounded-full flex items-center justify-center"></div>
                                     <div className=" delay-75 animate-ping absolute w-4 aspect-square border border-primary/40 rounded-full flex items-center justify-center"></div>
-                                    <div className="bg-primary absolute w-4 aspect-square rounded-full" />
+                                    <div className="bg-primary/80 absolute w-4 aspect-square rounded-full" />
                                 </div>
                                 <h1 className="text-xl">AI Assistant</h1>
                             </div>
