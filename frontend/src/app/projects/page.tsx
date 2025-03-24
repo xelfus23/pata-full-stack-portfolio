@@ -1,54 +1,35 @@
 "use client";
 import React from "react";
-import Section from "@/components/ui/section";
-import ProjectCard from "@/components/ui/card";
-import { motion } from "framer-motion";
-import { projectsData } from "@/lib/project/project-data";
+import GridBackground from "@/components/ui/gridBackground";
+import Hero from "@/components/sections/projectpage/hero";
+import SideBar from "@/components/ui/sideBar";
 
 const ProjectsPage = () => {
-    const container = {
-        hidden: { opacity: 0 },
-        show: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.2,
-            },
+    const sections = [
+        {
+            component: <Hero />,
+            id: "hero",
         },
-    };
-
-    const item = {
-        hidden: { opacity: 0, y: 20 },
-        show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-    };
+    ];
 
     return (
-        <Section
-            id="projects"
-            title="My Projects"
-            subtitle="A collection of projects I've worked on, but still unfinished."
-        >
-            <motion.div
-                className="grid md:grid-cols-2 gap-6 lg:gap-8"
-                variants={container}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true, amount: 0.2 }} // Adjust amount as needed
-            >
-                {projectsData.map((project, index) => (
-                    <motion.div variants={item} key={index}>
-                        <ProjectCard
-                            title={project.title}
-                            description={project.description}
-                            technologies={project.technologies}
-                            githubUrl={project.githubUrl}
-                            liveUrl={project.liveUrl}
-                            index={index}
-                            onTopOfPage={true}
-                        />
-                    </motion.div>
-                ))}
-            </motion.div>
-        </Section>
+        <main>
+            <SideBar sections={sections} />
+
+            {sections.map((v, i) => (
+                <div className="min-h-screen z-0" key={i}>
+                    {v.component}
+                </div>
+            ))}
+
+            <div className="absolute h-fit w-full top-0 -z-10">
+                {Array(sections.length)
+                    .fill(0)
+                    .map((_, i) => (
+                        <GridBackground key={i} />
+                    ))}
+            </div>
+        </main>
     );
 };
 

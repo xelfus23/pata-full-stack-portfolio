@@ -9,6 +9,7 @@ const PrimaryButton: React.FC<ButtonProps> = ({
     children,
     success,
     full,
+    color = "primary",
 }) => {
     const { setCursorState } = useCursorState();
 
@@ -20,7 +21,7 @@ const PrimaryButton: React.FC<ButtonProps> = ({
         ? `bg-green-400 hover:bg-green-400/80 px-6 py-3 rounded-md text-background hover:cursor-pointer transition-colors ${
               full ? "w-full" : ""
           }`
-        : `bg-primary hover:bg-primary/80 px-6 py-3 rounded-md text-background hover:cursor-pointer transition-colors ${
+        : `bg-${color} hover:bg-${color}/80 px-6 py-3 rounded-md text-background hover:cursor-pointer transition-colors ${
               full ? "w-full" : ""
           }`;
 

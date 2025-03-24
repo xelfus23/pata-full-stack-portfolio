@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 // import Image from "next/image";
 import { useWritingAnimation } from "@/hooks/useWritingAnimation";
-import useScroll from "@/hooks/useScroll";
 // import { move } from "@/animations/animations";
 
 interface NavItem {
@@ -35,8 +34,6 @@ const Navbar: React.FC = () => {
         ],
         []
     );
-
-    const scroll = useScroll();
 
     // Update underline position when pathname changes
     useEffect(() => {
@@ -70,14 +67,9 @@ const Navbar: React.FC = () => {
     };
 
     return (
-        <nav
-            style={{
-                transform: `-translateY(${scroll * 0.5}px)`,
-            }}
-            className="w-full z-30 absolute"
-        >
+        <nav className="w-full z-30 absolute">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex justify-between h-16">
+                <div className="flex justify-between mt-4">
                     <div className="flex items-center">
                         <Link
                             href="/"
@@ -110,7 +102,7 @@ const Navbar: React.FC = () => {
 
                     {/* Desktop menu */}
                     <div
-                        className="hidden md:flex items-center space-x-4 relative"
+                        className="hidden md:flex items-center space-x-4 h-10 relative"
                         ref={setContainerRef}
                     >
                         {/* Animated underline */}

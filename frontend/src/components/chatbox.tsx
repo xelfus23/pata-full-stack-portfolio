@@ -6,6 +6,7 @@ import { move } from "@/animations/animations";
 import axios from "axios";
 import DotLoading from "./ui/loading/dotLoading";
 import { URL } from "@/constant/url";
+import Image from "next/image";
 
 type MessageType = {
     role: string;
@@ -220,91 +221,107 @@ const ChatBox: React.FC<types> = ({ setLenisState }) => {
         <div className="fixed items-center md:block flex justify-center w-screen h-screen pointer-events-none z-40 ">
             <AnimatePresence mode="wait">
                 {visible && (
-                    <div className="z-50">
-                        <motion.div
-                            variants={move}
-                            initial={"initial"}
-                            animate={"animate"}
-                            exit={{
-                                opacity: 0,
-                                x: 20,
-                            }}
-                            transition={{
-                                duration: 0.2,
-                                delay: 0,
-                            }}
-                            custom={{ from: "right", delay: 1 }}
-                            className="absolute sm:hidden md:block md:bottom-10 md:w-auto bottom-20 md:right-15 pointer-events-auto w-fit flex"
+                    <motion.div
+                        variants={move}
+                        initial={"initial"}
+                        animate={"animate"}
+                        exit={{
+                            opacity: 0,
+                            x: 20,
+                        }}
+                        transition={{
+                            duration: 0.2,
+                            delay: 0,
+                        }}
+                        custom={{ from: "right", delay: 1 }}
+                        className="absolute sm:hidden md:block md:bottom-10 md:w-auto bottom-20 md:right-15 pointer-events-auto w-fit flex"
+                    >
+                        <form
+                            onSubmit={handleSubmit}
+                            className="chatbox-form border p-4 h-full border-secondary/20 bg-secondary/10 backdrop-blur-md w-auto rounded-2xl space-y-4 md:min-w-120 max-w-120"
                         >
-                            <form
-                                onSubmit={handleSubmit}
-                                className="chatbox-form border p-4 h-full border-secondary/20 bg-secondary/10 backdrop-blur-md w-auto rounded-2xl space-y-4 md:min-w-120 max-w-120"
-                            >
-                                <h1 className="text-xl">Chat Assistant</h1>
+                            <div className="flex items-center space-x-2">
                                 <motion.div
-                                    ref={messageRef}
-                                    className="chat-messages-container overflow-y-scroll p-2 rounded-xl h-150 space-y-4 scrollbar-thin"
-                                    onHoverStart={() => setLenisState(false)}
-                                    onHoverEnd={() => setLenisState(true)}
+                                    animate={{ rotate: 360 }}
+                                    transition={{
+                                        delay: 0,
+                                        duration: 5,
+                                        repeat: Infinity,
+                                        ease: "linear",
+                                    }}
+                                    className="relative h-8 aspect-square"
                                 >
-                                    {messages.map((message, index) => (
-                                        <ChatBubble
-                                            id={message.id}
-                                            key={index}
-                                            message={message.message}
-                                            role={message.role}
-                                        />
-                                    ))}
-                                    {loading && (
-                                        <div
-                                            className={`w-full flex justify-start`}
-                                        >
-                                            <div className="border border-primary/20 bg-secondary/10 rounded-xl max-w-[80%] p-4 items-center flex justify-center">
-                                                <DotLoading />
-                                            </div>
-                                        </div>
-                                    )}
+                                    <Image
+                                        src={"/images/gemini-icon.png"}
+                                        fill
+                                        alt=""
+                                    />
                                 </motion.div>
-                                <div className="flex items-center space-x-4 justify-between w-full">
-                                    <div className="w-full">
-                                        <Input
-                                            type="text"
-                                            placeholder="Type your message..."
-                                            required={false}
-                                            id="message"
-                                            onChange={setValue}
-                                            error={error}
-                                            value={input}
-                                            spellCheck={false}
-                                        />
-                                    </div>
-                                    <button
-                                        type="submit"
-                                        className="hover:cursor-pointer col-span-1"
+                                <h1 className="text-xl">Gemini Flash 2.0</h1>
+                            </div>
+                            <motion.div
+                                ref={messageRef}
+                                className="chat-messages-container overflow-y-scroll p-2 rounded-xl h-150 space-y-4 scrollbar-thin"
+                                onHoverStart={() => setLenisState(false)}
+                                onHoverEnd={() => setLenisState(true)}
+                            >
+                                {messages.map((message, index) => (
+                                    <ChatBubble
+                                        id={message.id}
+                                        key={index}
+                                        message={message.message}
+                                        role={message.role}
+                                    />
+                                ))}
+                                {loading && (
+                                    <div
+                                        className={`w-full flex justify-start`}
                                     >
-                                        <motion.svg
-                                            whileHover={{
-                                                opacity: 1,
-                                            }}
-                                            initial={{ opacity: 0.5 }}
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="35"
-                                            height="35"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeWidth="2"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        >
-                                            <path d="M3.714 3.048a.498.498 0 0 0-.683.627l2.843 7.627a2 2 0 0 1 0 1.396l-2.842 7.627a.498.498 0 0 0 .682.627l18-8.5a.5.5 0 0 0 0-.904z" />
-                                            <path d="M6 12h16" />
-                                        </motion.svg>
-                                    </button>
+                                        <div className="border border-primary/20 bg-secondary/10 rounded-xl max-w-[80%] p-4 items-center flex justify-center">
+                                            <DotLoading />
+                                        </div>
+                                    </div>
+                                )}
+                            </motion.div>
+                            <div className="flex items-center space-x-4 justify-between w-full">
+                                <div className="w-full">
+                                    <Input
+                                        type="text"
+                                        placeholder="Type your message..."
+                                        required={false}
+                                        id="message"
+                                        onChange={setValue}
+                                        error={error}
+                                        value={input}
+                                        spellCheck={false}
+                                    />
                                 </div>
-                            </form>
-                        </motion.div>
-                    </div>
+                                <button
+                                    type="submit"
+                                    className="hover:cursor-pointer col-span-1"
+                                >
+                                    <motion.svg
+                                        whileHover={{
+                                            opacity: 1,
+                                        }}
+                                        initial={{ opacity: 0.5 }}
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="35"
+                                        height="35"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        strokeWidth="2"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    >
+                                        <path d="M3.714 3.048a.498.498 0 0 0-.683.627l2.843 7.627a2 2 0 0 1 0 1.396l-2.842 7.627a.498.498 0 0 0 .682.627l18-8.5a.5.5 0 0 0 0-.904z" />
+                                        <path d="M6 12h16" />
+                                    </motion.svg>
+                                </button>
+                            </div>
+                        </form>
+                    </motion.div>
                 )}
             </AnimatePresence>
             <motion.svg

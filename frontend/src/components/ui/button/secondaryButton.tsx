@@ -6,6 +6,7 @@ const SecondaryButton: React.FC<ButtonProps> = ({
     disabled,
     onClick,
     type,
+    color = "primary",
 }) => {
     const { setCursorState } = useCursorState();
     return (
@@ -13,7 +14,7 @@ const SecondaryButton: React.FC<ButtonProps> = ({
             disabled={disabled}
             onMouseEnter={() => setCursorState({ scale: 1 })}
             onMouseLeave={() => setCursorState({ scale: 0.5 })}
-            className="border border-primary hover:bg-primary/10 px-6 py-3 rounded-md text-primary hover:cursor-pointer"
+            className={`border border-${color} hover:bg-${color}/10 px-6 py-3 rounded-md text-${color} hover:cursor-pointer`}
             onClick={onClick}
             type={type}
         >

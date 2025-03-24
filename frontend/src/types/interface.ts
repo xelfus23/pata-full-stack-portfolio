@@ -20,6 +20,7 @@ export interface ButtonProps {
     success?: boolean;
     children?: React.ReactNode;
     full?: boolean;
+    color?: string;
 }
 
 export interface InputProps {
