@@ -13,16 +13,16 @@ dotenv.config();
 const app = express();
 app.use(express.json());
 
-app.use(cors());
+// app.use(cors());
 
-// app.use(
-//     cors({
-//         origin: process.env.ALLOWED_ORIGINS.split(","),
-//         methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-//         credentials: true,
-//         allowedHeaders: ["Content-Type", "Authorization"],
-//     })
-// );
+app.use(
+    cors({
+        origin: process.env.ALLOWED_ORIGINS.split(","),
+        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        credentials: true,
+        allowedHeaders: ["Content-Type", "Authorization"],
+    })
+);
 
 const PORT = process.env.PORT || 4040;
 const MONGODB = process.env.MONGODB_URL;
