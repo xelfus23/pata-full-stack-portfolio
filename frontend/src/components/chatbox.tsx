@@ -128,8 +128,7 @@ const ChatBox: React.FC<types> = ({ setLenisState }) => {
                             id: msg._id,
                         })
                     );
-
-                    setMessages(loadedMessages);
+                    setMessages((prev) => [...prev, ...loadedMessages]);
                 } catch (error) {
                     console.error("Failed to load session:", error);
                     // Create new session if loading fails
