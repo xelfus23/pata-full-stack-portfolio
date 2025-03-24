@@ -282,6 +282,7 @@ const ChatBox: React.FC<types> = ({ setLenisState }) => {
                                         error={error}
                                         value={input}
                                         spellCheck={false}
+                                        autoComplete="off"
                                     />
                                 </div>
                                 <button

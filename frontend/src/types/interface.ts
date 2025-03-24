@@ -24,6 +24,7 @@ export interface ButtonProps {
 }
 
 export interface InputProps {
+    autoComplete?: string;
     id: string;
     type: string;
     placeholder: string;
