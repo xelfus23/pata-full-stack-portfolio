@@ -7,41 +7,27 @@ import jwt from "jsonwebtoken"; // Import jsonwebtoken
 import { User } from "./models/userModel.js";
 import { Message } from "./models/messageModel.js";
 import { Chat } from "./models/chatModel.js";
-import { modelInstructions } from "./modelInstructions.js";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { Instruction } from "./models/instructionsModel.js";
 dotenv.config();
 const app = express();
 app.use(express.json());
 
-app.use(cors());
+// app.use(cors());
 
-// app.use(
-//     cors({
-//         origin: process.env.ALLOWED_ORIGINS.split(","),
-//         methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-//         credentials: true,
-//         allowedHeaders: ["Content-Type", "Authorization"],
-//     })
-// );
+app.use(
+    cors({
+        origin: process.env.ALLOWED_ORIGINS.split(","),
+        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        credentials: true,
+        allowedHeaders: ["Content-Type", "Authorization"],
+    })
+);
 
-const PORT = process.env.PORT || 4040; // Provide a default port
+const PORT = process.env.PORT || 4040;
 const MONGODB = process.env.MONGODB_URL;
 const apiKey = process.env.GEMINI_API_KEY;
 const genAI = new GoogleGenerativeAI(apiKey);
-
-const model = genAI.getGenerativeModel({
-    model: "gemini-2.0-flash",
-    systemInstruction: modelInstructions,
-});
-
-const generationConfig = {
-    temperature: 1,
-    topP: 0.95,
-    topK: 40,
-    maxOutputTokens: 8192,
-    responseMimeType: "text/plain",
-};
 
 if (!MONGODB) {
     throw new Error("Please define the MONGODB_URI environment variable.");
@@ -65,7 +51,10 @@ app.get("/api/get-gemini-instructions", async (req, res) => {
                 .json({ message: "No active Gemini instructions found" });
         }
 
-        res.json({ instructionString: activeInstructions.instructionString }); // Send the string
+        res.status(200).json({
+            instructionString: activeInstructions.instructionString,
+            version: activeInstructions.version,
+        }); // Send the string
     } catch (error) {
         console.error("Error fetching instructions:", error);
         res.status(500).json({
@@ -74,10 +63,13 @@ app.get("/api/get-gemini-instructions", async (req, res) => {
     }
 });
 
+// backend/index.js
 app.post("/api/create-gemini-instructions", async (req, res) => {
-    console.log("Received Request"); // Add this line
+    console.log("Received Request");
     try {
-        const { instructionString, version } = req.body; // Correct variable name
+        const { instructionString, version } = req.body;
+
+        console.log(req.body);
 
         if (!instructionString || !version) {
             return res
@@ -85,17 +77,15 @@ app.post("/api/create-gemini-instructions", async (req, res) => {
                 .json({ message: "Missing instructions or version." });
         }
 
-        // 1. Deactivate any existing active instruction (optional but RECOMMENDED)
+        //Deactivate all other instructions
         await Instruction.updateMany({ active: true }, { active: false });
 
-        // 2. Create a *new* instruction set
         const newInstruction = new Instruction({
             instructionString: instructionString,
             version: version,
-            active: true, // Mark the new one as active
         });
 
-        const savedInstruction = await newInstruction.save(); // Use .save() to create
+        const savedInstruction = await newInstruction.save();
 
         res.status(201).json({
             message: "Instructions created and activated.",
@@ -103,10 +93,6 @@ app.post("/api/create-gemini-instructions", async (req, res) => {
         });
     } catch (err) {
         console.error("Error creating/updating instruction:", err);
-        res.status(500).json({
-            message: "Failed to create/update instruction.",
-            error: err.message,
-        }); // Include the error message for debugging
     }
 });
 
@@ -326,6 +312,49 @@ app.post("/sessions", async (req, res) => {
 // Update your existing endpoint to add messages to a session
 app.post("/chats", async (req, res) => {
     try {
+        const modelInstructions = app.get(
+            "/api/get-gemini-instructions",
+            async (req, res) => {
+                try {
+                    const activeInstructions = await Instruction.findOne({
+                        active: true,
+                    }).sort({ version: -1 });
+
+                    if (!activeInstructions) {
+                        return res.status(404).json({
+                            message: "No active Gemini instructions found",
+                        });
+                    }
+
+                    return activeInstructions.instructionString;
+                } catch (error) {
+                    console.error("Error fetching instructions:", error);
+                    res.status(500).json({
+                        message: "Failed to fetch Gemini instructions",
+                    });
+                }
+            }
+        );
+
+        if (!modelInstructions) {
+            return res.status(400).send({
+                message: "An Error has occured. please try again later",
+            });
+        }
+
+        const model = genAI.getGenerativeModel({
+            model: "gemini-2.0-flash",
+            systemInstruction: modelInstructions,
+        });
+
+        const generationConfig = {
+            temperature: 1,
+            topP: 0.95,
+            topK: 40,
+            maxOutputTokens: 8192,
+            responseMimeType: "text/plain",
+        };
+
         if (!req.body.message) {
             return res.status(400).send({ message: "Invalid Submission" });
         }
@@ -395,14 +424,12 @@ app.post("/chats", async (req, res) => {
 
 app.get("/users", verifyToken, async (req, res) => {
     try {
-        // Check if the user is an admin
-        const user = await User.findById(req.userId); // Assuming verifyToken sets req.userId
+        const user = await User.findById(req.userId);
         if (!user || user.role !== "admin") {
-            // You'll need to add a 'role' field to your User model
             return res.status(403).json({ message: "Unauthorized." });
         }
 
-        const users = await User.find({}, "username _id"); // Project only username and _id
+        const users = await User.find({}, "username _id");
         return res.status(200).json({ message: users });
     } catch (err) {
         console.error(err);
