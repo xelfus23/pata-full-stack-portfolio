@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 const ThemeToggle = () => {
     const [darkMode, setDarkMode] = useState(false);

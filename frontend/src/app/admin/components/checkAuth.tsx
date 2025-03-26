@@ -28,10 +28,6 @@ export default function CheckAuthState({
             onclick: () => router.push("/admin"),
         },
         {
-            label: "Settings",
-            onclick: () => router.push("/admin/settings"),
-        },
-        {
             label: "Logout",
             onclick: logout,
         },

@@ -4,7 +4,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation"; // Import useRouter hook
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import GridBackground from "@/components/ui/gridBackground";
 
 const NotFound = () => {

@@ -3,7 +3,7 @@
 import { useWritingAnimation } from "@/hooks/useWritingAnimation";
 import { componentsData } from "@/lib/library-data";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { move } from "@/animations/animations";
 import React from "react";
 

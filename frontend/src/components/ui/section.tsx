@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { useWritingAnimation } from "@/hooks/useWritingAnimation";
 import { useCursorState } from "@/utils/cursorProvider";
 
@@ -23,7 +23,7 @@ const Section = ({
     return (
         <section
             id={id}
-            className={`py-16 md:py-24 px-4 overflow-hidden ${className} z-50`}
+            className={`overflow-hidden ${className} z-50 py-16 md:py-24 px-4 `}
         >
             <div className="max-w-6xl mx-auto">
                 <motion.div

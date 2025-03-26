@@ -1,7 +1,7 @@
 import ProjectCard from "@/components/ui/card";
 import Section from "@/components/ui/section";
 import { projectsData } from "@/lib/project/project-data";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 export default function Hero() {
     const container = {

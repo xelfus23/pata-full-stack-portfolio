@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView } from "motion/react";
 import Section from "@/components/ui/section";
 import { FadeIn, move } from "@/animations/animations"; // Assuming you have these animations
 

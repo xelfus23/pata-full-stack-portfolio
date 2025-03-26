@@ -11,8 +11,7 @@ FramerMotion
 
 These are the Color:
 
-Color usage examples: 
-
+Tailwind Color usage examples: 
 full color = bg-background, bg-text.
 10% to 90% opacity colors = bg-background/10, bg-background/90
 
@@ -45,94 +44,123 @@ I am currently studying, Bachelor of Sciece in Information Technology, major in 
 I do not have any job or any tech related job experience yet.
 
 Here are my contact info and links:
-phone: +63 1234567890
-email: test@gmail.com
+phone: +63 916 331 8032
+email: patrick.medenilla23@gmail.com
 address: Valenzuela City Philippines
-github: github.com/user
+github: github.com/xelfus23
 
+
+This portfolio website is built with Next.js, Tailwind CSS, Framer Motion, Node.js, MongoDB, Express.js.
+
+
+##
 
 **Here's my folder structure**
 full-stack-portfolio
-|--Frontend**
-|     |--.next
-|     |--node_modules
-|     |--public
-|     |     |--images
-|     |     |--icons
-|     |     |--svg
-|     |--src
-|     |     |--animations
-|     |     |     |--animation.tsx
-|     |     |--app
-|     |     |     |--about
-|     |     |     |     |--components
-|     |     |     |     |     |--educationExperience.tsx
-|     |     |     |     |     |--hero.tsx
-|     |     |     |     |     |--myStory.tsx
-|     |     |     |     |     |--personalInterest.tsx
-|     |     |     |     |     |--skillsExpertise.tsx
-|     |     |     |     |--page.tsx
-|     |     |     |--contact
-|     |     |     |     |--page.tsx
-|     |     |     |--library
-|     |     |     |     |--[category]
-|     |     |     |     |     |--page.tsx
-|     |     |     |     |--layout.tsx
-|     |     |     |     |--page.tsx
-|     |     |     |--projects
-|     |     |     |     |--page.tsx
-|     |     |     |--roadmap
-|     |     |     |     |--page.tsx
-|     |     |     |--page.tsx
-|     |     |     |--components
-|     |     |--components
-|     |     |     |--ui
-|     |     |     |     |--buttons
-|     |     |     |     |     |--primaryButton.tsx
-|     |     |     |     |     |--secondaryButton.tsx
-|     |     |     |     |--navigation
-|     |     |     |     |     |--simpleNav.tsx
-|     |     |     |     |--animatedText.tsx
-|     |     |     |     |--button.tsx
-|     |     |     |     |--card.tsx
-|     |     |     |     |--cursor.tsx
-|     |     |     |     |--debug.tsx
-|     |     |     |     |--gridBackground.tsx
-|     |     |     |     |--loadingAnimation.tsx
-|     |     |     |     |--radialDiv.tsx
-|     |     |     |     |--section.tsx
-|     |     |     |     |--skills.tsx
-|     |     |     |     |--themeToggle.tsx
-|     |     |     |--footer.tsx
-|     |     |     |--navBar.tsx
-|     |     |--hooks
-|     |     |     |--useCustomScroll.ts
-|     |     |     |--useMouse.ts
-|     |     |     |--useScroll.ts
-|     |     |     |--useWritingAnimation.tsx
-|     |     |--lib
-|     |     |     |--library-components
-|     |     |     |     |--library_data.tsx
-|     |     |--utils
-|     |     |     |--cursorProvider.tsx
-|     |     |     |--filterCode.tsx
-|     |     |--styles
-|     |--gitIgnore
-|     |--eslint.config.mjs
-|     |--next-env.d.ts
-|     |--next.config.ts
-|     |--package-lock.json
-|     |--postcss.config.mjs
-|     |--README.md
-|     |--tsconfig.json
-|--Backend
-|     |--models
-|     |     |--messageModel.js
-|     |--node_modules
-|     |--config.js
-|     |--index.js
-|     |--package-lock.josn
-|     |--package.json
+|-Frontend**
+|   |-.next
+|   |-node_modules
+|   |-public
+|   |   |-images
+|   |   |-icons
+|   |   |-svg
+|   |-src
+|   |   |-animations
+|   |   |   |-animation.tsx
+|   |   |-app
+|   |   |   |-admin
+|   |   |   |   |-check-messages
+|   |   |   |   |   |-page.tsx
+|   |   |   |   |-components
+|   |   |   |   |   |-auth.tsx
+|   |   |   |   |   |-checkAuth.tsx
+|   |   |   |   |-gemini-instructions
+|   |   |   |   |   |-page.tsx
+|   |   |   |   |-login
+|   |   |   |   |   |-page.tsx
+|   |   |   |   |-signup
+|   |   |   |   |   |-paget.sx
+|   |   |   |   |-layout.tsx
+|   |   |   |   |-page.tsx
+|   |   |   |-about
+|   |   |   |   |-page.tsx
+|   |   |   |-contact
+|   |   |   |   |-page.tsx
+|   |   |   |-library
+|   |   |   |   |-[category]
+|   |   |   |   |   |-page.tsx
+|   |   |   |   |-layout.tsx
+|   |   |   |   |-page.tsx
+|   |   |   |-projects
+|   |   |   |   |-page.tsx
+|   |   |   |-page.tsx
+|   |   |-components
+|   |   |   |-sections
+|   |   |   |   |-aboutpage
+|   |   |   |   |   |-educationExperience.tsx
+|   |   |   |   |   |-hero.tsx
+|   |   |   |   |   |-myStory.tsx
+|   |   |   |   |   |-personalInterest.tsx
+|   |   |   |   |   |-skillsExpertise.tsx
+|   |   |   |   |-contactpage
+|   |   |   |   |-homepage
+|   |   |   |   |   |-about.tsx
+|   |   |   |   |   |-contact.tsx
+|   |   |   |   |   |-hero.tsx
+|   |   |   |   |   |-projects.tsx
+|   |   |   |   |-projectpage
+|   |   |   |   |   |-hero.tsx
+|   |   |   |-ui
+|   |   |   |   |-buttons
+|   |   |   |   |   |-primaryButton.tsx
+|   |   |   |   |   |-secondaryButton.tsx
+|   |   |   |   |-navigation
+|   |   |   |   |   |-simpleNav.tsx
+|   |   |   |   |-animatedText.tsx
+|   |   |   |   |-button.tsx
+|   |   |   |   |-card.tsx
+|   |   |   |   |-cursor.tsx
+|   |   |   |   |-debug.tsx
+|   |   |   |   |-gridBackground.tsx
+|   |   |   |   |-loadingAnimation.tsx
+|   |   |   |   |-radialDiv.tsx
+|   |   |   |   |-section.tsx
+|   |   |   |   |-skills.tsx
+|   |   |   |   |-themeToggle.tsx
+|   |   |   |-footer.tsx
+|   |   |   |-navBar.tsx
+|   |   |-hooks
+|   |   |   |-useCustomScroll.ts
+|   |   |   |-useMouse.ts
+|   |   |   |-useScroll.ts
+|   |   |   |-useWritingAnimation.tsx
+|   |   |-lib
+|   |   |   |-library-components
+|   |   |   |   |-library_data.tsx
+|   |   |-utils
+|   |   |   |-cursorProvider.tsx
+|   |   |   |-filterCode.tsx
+|   |   |-styles
+|   |-.gitIgnore
+|   |-eslint.config.mjs
+|   |-next-env.d.ts
+|   |-next.config.ts
+|   |-package-lock.json
+|   |-postcss.config.mjs
+|   |-README.md
+|   |-tsconfig.json
+|-Backend
+|   |-api
+|   |   |
+|   |-models
+|   |   |-messageModel.js
+|   |-node_modules
+|   |-config.js
+|   |-index.js
+|   |-package-lock.josn
+|   |-package.json
+
+##
 
 **Here's my Package.json & Dependencies**
 
@@ -150,6 +178,7 @@ full-stack-portfolio
     "lint": "next lint"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.0",
     "@vercel/analytics": "^1.5.0",
     "axios": "^1.8.4",
     "bcrypt": "^5.1.1",
@@ -175,786 +204,3 @@ full-stack-portfolio
     "typescript": "^5"
   }
 }
-
-
-<backend/index.js>
-import express from "express";
-import mongoose from "mongoose";
-import { Message } from "./models/messageModel.js";
-import cors from "cors";
-import * as dotenv from "dotenv";
-import { User } from "./models/userModel.js";
-
-dotenv.config();
-const app = express();
-
-app.use(express.json());
-app.use(cors());
-
-const PORT = process.env.PORT;
-const MONGODB = process.env.MONGODB_URL;
-
-if (!PORT || !MONGODB) {
-    throw new Error(
-        "Please define the MONGODB_URI environment variable inside .env.local"
-    );
-}
-
-app.get("/messages", async (req, res) => {
-    try {
-        const message = await Message.find({});
-        return res.json({ length: message.length, data: message });
-    } catch (e) {
-        console.log(e);
-        res.status(500).send({
-            message: e.message,
-        });
-    }
-});
-
-app.post("/messages", async (req, res) => {
-    try {
-        if (!req.body.name || !req.body.message || !req.body.email) {
-            res.status(400).send({
-                message: "Invalid Submission",
-            });
-        }
-
-        const newMessage = {
-            name: req.body.name,
-            email: req.body.email,
-            message: req.body.message,
-            company: req.body.company,
-        };
-
-        const message = await Message.create(newMessage);
-        return res.status(201).send(message);
-    } catch (err) {
-        console.error(err);
-        return res.status(500).send({
-            message: "Server Error" + err.message,
-        });
-    }
-});
-
-app.get("/users", async (req, res) => {
-    try {
-        const users = await User.find({});
-        return res.status(200).send({ message: users });
-    } catch (err) {
-        console.error(err);
-        return res.status(500).send({
-            message: "Server Error" + err.message,
-        });
-    }
-});
-
-app.post("/users", async (req, res) => {
-    try {
-        if (!req.body.username || !req.body.password) {
-            res.status(400).send({
-                message: "Invalid Submission",
-            });
-        }
-
-        const newUser = new User({
-            username: req.body.username,
-            password: req.body.password,
-        });
-
-        const user = await User.create(newUser);
-        return res.status(201).send(user);
-    } catch (err) {
-        console.error(err);
-        return res.status(500).send({
-            message: "Server Error" + err.message,
-        });
-    }
-});
-
-mongoose
-    .connect(MONGODB, {
-        dbName: "my-database",
-    })
-    .then(() => {
-        app.listen(PORT, () => {
-            console.log(`Server is running on port ${PORT}`);
-        });
-    })
-    .catch((err) => {
-        console.log(err);
-    });
-
-
-//COMPONENT <frontend/src/app/layout.tsx>
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import ReactLenis from "lenis/react";
-import { CursorProvider } from "@/utils/cursorProvider";
-import Footer from "@/components/footer";
-import Navbar from "@/components/navBar";
-import React from "react";
-import { Analytics } from "@vercel/analytics/react";
-
-// import Debug from "@/components/ui/debug";
-
-const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-    title: "Patrick - Portfolio",
-    description: "Frontend developer specializing in React and Next.js",
-    icons: "/icons/icon.png",
-};
-
-export default function RootLayout({
-    children,
-}: Readonly<{
-    children: React.ReactNode;
-}>) {
-    return (
-        <html lang="en" className="scroll-smooth">
-            <Analytics />
-            <body
-                className={`${inter.className} bg-background text-text scrollbar-hidden`}
-            >
-                <Navbar />
-
-                <ReactLenis
-                    options={{
-                        duration: 2,
-                    }}
-                    root
-                >
-                    <CursorProvider>{children}</CursorProvider>
-                </ReactLenis>
-                {/* <Debug /> */}
-                <Footer zIndex={1} />
-            </body>
-        </html>
-    );
-}
-
-
-//COMPONENT <src\app\page.tsx>
-"use client";
-import About from "@/app/components/about";
-import Contact from "@/app/components/contact";
-import Hero from "@/app/components/hero";
-import Projects from "@/app/components/projects";
-import CursorFollower from "@/components/ui/cursor";
-import GridBackground from "@/components/ui/gridBackground";
-
-export default function Home() {
-    const sections = [
-        { key: 1, component: <Hero /> },
-        {
-            key: 2,
-            component: <About />,
-        },
-        {
-            key: 4,
-            component: <Projects />,
-        },
-        {
-            key: 5,
-            component: <Contact />,
-        },
-    ];
-
-    return (
-        <main className="scroll-smooth overflow-y-hidden relative">
-            <CursorFollower lag={0.05} />
-
-            {sections.map((v, i) => (
-                <div className="min-h-screen z-0" key={i}>
-                    {v.component}
-                </div>
-            ))}
-
-            <div className="absolute h-fit w-full top-0 -z-10">
-                {Array(sections.length)
-                    .fill(0)
-                    .map((_, i) => (
-                        <GridBackground key={i} />
-                    ))}
-            </div>
-        </main>
-    );
-}
-
-//COMPONENT <src\app\components\hero.tsx>
-
-"use client";
-import { useWritingAnimation } from "@/hooks/useWritingAnimation";
-// import useScroll from "@/hooks/useScroll";
-import { motion } from "framer-motion";
-import Link from "next/link";
-import { useCursorState } from "../../utils/cursorProvider";
-
-const Hero: React.FC = () => {
-    // const scroll = useScroll() * 0.4;
-    const { setCursorState } = useCursorState();
-
-    return (
-        <section
-            id="#home"
-            className="relative flex flex-col items-center justify-center min-h-screen py-16 mt-16"
-        >
-            <div className="container mx-auto px-4 z-10 justify-center flex items-center">
-                <motion.div
-                    // animate={{
-                    //     y: scroll,
-                    // }}
-                    transition={{
-                        duration: 0.2,
-                    }}
-                    className="max-w-3xl mx-auto text-center"
-                >
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{
-                            opacity: 1,
-                            y: 0,
-                        }}
-                        transition={{ duration: 0.5 }}
-                        onHoverStart={() => setCursorState({ scale: 3 })}
-                        onHoverEnd={() => setCursorState({ scale: 0.5 })}
-                    >
-                        <motion.h1
-                            // animate={{ y: scroll }}
-                            transition={{
-                                duration: 0.3,
-                            }}
-                            className="text-4xl md:text-6xl font-bold mb-6"
-                        >
-                            <span className="text-text">Hi, I&apos;m </span>
-                            <span className="text-primary">
-                                {useWritingAnimation(
-                                    "Patrick John",
-                                    2,
-                                    0.02,
-                                    false
-                                )}
-                            </span>
-                        </motion.h1>
-                    </motion.div>
-
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{
-                            duration: 0.5,
-                            delay: 0.1,
-                            type: "tween",
-                        }}
-                    >
-                        <motion.h2
-                            // animate={{ y: scroll }}
-                            transition={{
-                                duration: 0.3,
-                            }}
-                            className="text-xl md:text-1xl font-medium mb-8 text-text/80 font-mono"
-                        >
-                            {useWritingAnimation(
-                                `I build modern web experiences with React, Next.js,
-                            and more`,
-                                2,
-                                0.01,
-                                false
-                            )}
-                        </motion.h2>
-                    </motion.div>
-
-                    <motion.div
-                        // animate={{ y: scroll }}
-                        transition={{
-                            duration: 0.2,
-                        }}
-                        className="flex flex-col sm:flex-row gap-4 justify-center"
-                    >
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.8 }}
-                            className="px-6 py-3 cursor-pointer bg-primary text-background font-medium rounded-md hover:bg-primary/90 transition-colors duration-300"
-                            onHoverStart={() => setCursorState({ scale: 2 })}
-                            onHoverEnd={() => setCursorState({ scale: 0.5 })}
-                        >
-                            <Link className="" href="#projects">
-                                View My Work
-                            </Link>
-                        </motion.div>
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 1 }}
-                            className="px-6 py-3 cursor-pointer border border-primary text-primary font-medium rounded-md hover:bg-primary/10 transition-colors duration-300"
-                            onHoverStart={() => setCursorState({ scale: 2 })}
-                            onHoverEnd={() => setCursorState({ scale: 0.5 })}
-                        >
-                            <Link className="" href="#contact">
-                                Contact Me
-                            </Link>
-                        </motion.div>
-                    </motion.div>
-                </motion.div>
-            </div>
-
-            {/* Scroll indicator */}
-            <motion.div
-                className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-                animate={{
-                    y: [0, 10, 0],
-                }}
-                transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    repeatType: "loop",
-                }}
-            >
-                <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="text-primary"
-                >
-                    <path
-                        d="M12 5V19M12 19L5 12M12 19L19 12"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                    />
-                </svg>
-            </motion.div>
-
-            {/* <div className="container h-screen"></div> */}
-        </section>
-    );
-};
-
-export default Hero;
-
-//COMPONENT <src\app\components\about.tsx>
-"use client";
-import { motion } from "framer-motion";
-import Section from "../../components/ui/section";
-import Image from "next/image";
-import useScroll from "@/hooks/useScroll";
-import { useCursorState } from "../../utils/cursorProvider";
-import Link from "next/link";
-
-const About = () => {
-    const skills = [
-        "React.js",
-        "Next.js",
-        "TypeScript",
-        "JavaScript",
-        "TailwindCSS",
-        "Framer Motion",
-        "React Native",
-        "HTML5",
-        "CSS3",
-    ];
-
-    const { setCursorState } = useCursorState();
-
-    const offset = useScroll();
-
-    return (
-        <Section
-            id="about"
-            title="About Me"
-            subtitle="Learn more about my skills and experience"
-        >
-            <div className="grid md:grid-cols-2 gap-12 items-center min-h-screen">
-                <motion.div
-                    initial={{ opacity: 0, x: -50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.6 }}
-                    onHoverStart={() => setCursorState({ scale: 4 })}
-                    onHoverEnd={() => setCursorState({ scale: 0.5 })}
-                    className="z-10"
-                >
-                    <div className="aspect-square rounded-2xl overflow-hidden relative bg-gradient-to-br from-primary/20 to-secondary/20">
-                        {/* Replace with your image */}
-                        <motion.div
-                            animate={{
-                                y: offset * 0.05,
-                            }}
-                            transition={{
-                                duration: 0,
-                            }}
-                            className="absolute inset-0 flex items-center justify-center text-primary"
-                        >
-                            <Image
-                                src={"/images/back.png"}
-                                fill
-                                alt="profile"
-                                className="scale-140"
-                            />
-                        </motion.div>
-                        <motion.div
-                            animate={{
-                                y: offset * 0,
-                            }}
-                            transition={{
-                                duration: 1,
-                            }}
-                            className="absolute inset-0 flex items-center justify-center text-primary"
-                        >
-                            <Image
-                                src={"/images/front.png"}
-                                fill
-                                alt="profile"
-                            />
-                        </motion.div>
-                    </div>
-                </motion.div>
-
-                <motion.div
-                    initial={{ opacity: 0, x: 50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                    className="flex flex-col space-y-6"
-                >
-                    <h3 className="text-2xl font-semibold mb-4 text-primary">
-                        Front-end Developer
-                    </h3>
-                    <p className="mb-6 text-text/90">
-                        I&apos;m a passionate front-end developer with a focus
-                        on creating responsive, accessible, and performant web
-                        applications. With expertise in React.js, Next.js, and
-                        modern front-end technologies, I bring designs to life
-                        with clean code and smooth interactions.
-                    </p>
-                    <p className="mb-6 text-text/90">
-                        I enjoy tackling complex problems and continuously
-                        learning new technologies to enhance my skillset and
-                        deliver better solutions.
-                    </p>
-
-                    <div className="flex flex-col space-y-5 justify-between h-full">
-                        <h4 className="text-xl font-medium mb-3 text-primary">
-                            Skills
-                        </h4>
-                        <div className="flex flex-wrap gap-2 h-auto">
-                            {skills.map((skill, index) => (
-                                <motion.span
-                                    key={skill}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{
-                                        once: true,
-                                        margin: "-100px",
-                                    }}
-                                    transition={{
-                                        duration: 0.3,
-                                        delay: 0.1 * index,
-                                    }}
-                                    onHoverStart={() =>
-                                        setCursorState({ scale: 1 })
-                                    }
-                                    onHoverEnd={() =>
-                                        setCursorState({ scale: 0.5 })
-                                    }
-                                    className="px-3 py-1  bg-secondary/10 text-text rounded-md border border-secondary/20"
-                                >
-                                    {skill}
-                                </motion.span>
-                            ))}
-                        </div>
-                    </div>
-
-                    <div>
-                        <Link
-                            className="bg-primary text-background rounded-md px-6 py-3 hover:bg-primary/80 transition-colors"
-                            href={"/about"}
-                        >
-                            Learn more
-                        </Link>
-                    </div>
-                </motion.div>
-            </div>
-        </Section>
-    );
-};
-
-export default About;
-
-<src\app\components\projects.tsx>
-import Section from "../../components/ui/section";
-import ProjectCard from "../../components/ui/card";
-
-const Projects = () => {
-    const projects = [
-        {
-            title: "Fitness App",
-            description:
-                "A fitness mobile application that leverages AI to generate exercise plans.",
-            technologies: ["React Native", "React"],
-            githubUrl: "#",
-            liveUrl: "#",
-        },
-        {
-            title: "Fitness App",
-            description:
-                "A fitness mobile application that leverages AI to generate exercise plans.",
-            technologies: ["React Native", "React"],
-            githubUrl: "#",
-            liveUrl: "#",
-        },
-    ];
-
-    return (
-        <Section
-            id="projects"
-            title="Featured Projects"
-            subtitle="Check out some of my recent work"
-        >
-            <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
-                {projects.map((project, index) => (
-                    <ProjectCard
-                        key={index}
-                        title={project.title}
-                        description={project.description}
-                        technologies={project.technologies}
-                        githubUrl={project.githubUrl}
-                        liveUrl={project.liveUrl}
-                        index={index}
-                    />
-                ))}
-            </div>
-        </Section>
-    );
-};
-
-export default Projects;
-
-<src\app\components\contact.tsx>
-import { useState } from "react";
-import { motion } from "framer-motion";
-import Section from "../../components/ui/section";
-import { useCursorState } from "@/utils/cursorProvider";
-
-const Contact = () => {
-    const [formData, setFormData] = useState({
-        name: "",
-        email: "",
-        message: "",
-    });
-
-    const { setCursorState } = useCursorState();
-
-    const handleChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ) => {
-        const { name, value } = e.target;
-        setFormData((prev) => ({ ...prev, [name]: value }));
-    };
-
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        // Here you would typically send the form data to your backend
-        console.log("Form submitted:", formData);
-        alert("Thanks for your message! I'll get back to you soon.");
-        setFormData({ name: "", email: "", message: "" });
-    };
-
-    return (
-        <Section
-            id="contact"
-            title="Contact Me"
-            subtitle="Get in touch for collaborations or inquiries"
-        >
-            <div className="grid md:grid-cols-2 gap-12">
-                <motion.div
-                    initial={{ opacity: 0, x: -50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.6 }}
-                >
-                    <h3 className="text-2xl font-semibold mb-4 text-primary">
-                        Let&apos;s Talk
-                    </h3>
-                    <p className="mb-6 text-text/90">
-                        I&apos;m interested in freelance opportunities,
-                        especially ambitious or large projects. However, if you
-                        have other requests or questions, don&apos;t hesitate to
-                        contact me.
-                    </p>
-
-                    <div className="space-y-4">
-                        <div className="flex items-center gap-4">
-                            <div className="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center text-primary">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="20"
-                                    height="20"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                >
-                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                                    <polyline points="22,6 12,13 2,6"></polyline>
-                                </svg>
-                            </div>
-                            <div>
-                                <h4 className="text-text font-medium">Email</h4>
-                                <a
-                                    href="mailto:your.email@example.com"
-                                    className="text-primary hover:text-primary/80 transition-colors duration-300"
-                                >
-                                    patrick.medenilla23@gmail.com
-                                </a>
-                            </div>
-                        </div>
-
-                        <div className="flex items-center gap-4">
-                            <div className="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center text-primary">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="20"
-                                    height="20"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                >
-                                    <path d="M15.05 5A5 5 0 0 1 19 8.95M15.05 1A9 9 0 0 1 23 8.94m-1 7.98v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h4 className="text-text font-medium">Phone</h4>
-                                <a
-                                    href="tel:+1234567890"
-                                    className="text-primary hover:text-primary/80 transition-colors duration-300"
-                                >
-                                    +63 916 331 8032
-                                </a>
-                            </div>
-                        </div>
-
-                        <div className="flex items-center gap-4">
-                            <div className="w-10 h-10 rounded-full bg-secondary/10 flex items-center justify-center text-primary">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="20"
-                                    height="20"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                >
-                                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h4 className="text-text font-medium">
-                                    GitHub
-                                </h4>
-                                <a
-                                    href="https://github.com/xelfus23"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-primary hover:text-primary/80 transition-colors duration-300"
-                                >
-                                    github.com/xelfus23
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </motion.div>
-
-                <motion.div
-                    initial={{ opacity: 0, x: 50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.6, delay: 0.2 }}
-                >
-                    <form onSubmit={handleSubmit} className="space-y-4">
-                        <div>
-                            <label
-                                htmlFor="name"
-                                className="block text-text mb-2"
-                            >
-                                Name
-                            </label>
-                            <input
-                                type="text"
-                                id="name"
-                                name="name"
-                                value={formData.name}
-                                onChange={handleChange}
-                                required
-                                className="w-full p-3 bg-secondary/5 border border-secondary/20 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent text-text"
-                                placeholder="Your Name"
-                            />
-                        </div>
-
-                        <div>
-                            <label
-                                htmlFor="email"
-                                className="block text-text mb-2"
-                            >
-                                Email
-                            </label>
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                                required
-                                className="w-full p-3 bg-secondary/5 border border-secondary/20 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent text-text"
-                                placeholder="your.email@example.com"
-                            />
-                        </div>
-
-                        <div>
-                            <label
-                                htmlFor="message"
-                                className="block text-text mb-2"
-                            >
-                                Message
-                            </label>
-                            <textarea
-                                id="message"
-                                name="message"
-                                value={formData.message}
-                                onChange={handleChange}
-                                required
-                                rows={6}
-                                className="w-full p-3 bg-secondary/5 border border-secondary/20 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent text-text resize-none"
-                                placeholder="How can I help you?"
-                            ></textarea>
-                        </div>
-
-                        <motion.button
-                            type="submit"
-                            className="px-6 py-3 bg-primary text-background font-medium rounded-md hover:bg-primary/90 transition-colors duration-300 w-full md:w-auto hover:cursor-pointer"
-                            onHoverStart={() => setCursorState({ scale: 2 })}
-                            onHoverEnd={() => setCursorState({ scale: 0.5 })}
-                        >
-                            Send Message
-                        </motion.button>
-                    </form>
-                </motion.div>
-            </div>
-        </Section>
-    );
-};
-
-export default Contact;

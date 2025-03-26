@@ -1,7 +1,7 @@
 // components/About/HeroSection.tsx
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { useWritingAnimation } from "@/hooks/useWritingAnimation";
 import { useCursorState } from "@/utils/cursorProvider";
 

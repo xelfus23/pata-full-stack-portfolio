@@ -1,41 +1,23 @@
-import express from "express";
+import express, { response } from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import * as dotenv from "dotenv";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken"; // Import jsonwebtoken
 import { User } from "./models/userModel.js";
 import { Message } from "./models/messageModel.js";
 import { Chat } from "./models/chatModel.js";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { Instruction } from "./models/instructionsModel.js";
-import { body, validationResult } from "express-validator"; // For input validation
-import rateLimit from "express-rate-limit"; // For rate limiting
-
 dotenv.config();
 const app = express();
 app.use(express.json());
-
-// --------------------------------------------------------------------------
-// CORS Configuration - Be specific about allowed origins in production
-// --------------------------------------------------------------------------
-
-const allowedOrigins = process.env.ALLOWED_ORIGINS
-    ? process.env.ALLOWED_ORIGINS.split(",")
-    : [];
 
 // app.use(cors());
 
 app.use(
     cors({
-        origin: (origin, callback) => {
-            if (!origin || allowedOrigins.includes(origin)) {
-                // Allow requests with no origin (like mobile apps)
-                callback(null, true);
-            } else {
-                callback(new Error("Not allowed by CORS"));
-            }
-        },
+        origin: process.env.ALLOWED_ORIGINS.split(","),
         methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         credentials: true,
         allowedHeaders: ["Content-Type", "Authorization"],
@@ -51,71 +33,11 @@ if (!MONGODB) {
     throw new Error("Please define the MONGODB_URI environment variable.");
 }
 
-// --------------------------------------------------------------------------
-// Rate Limiting - Protect against abuse
-// --------------------------------------------------------------------------
-
-const limiter = rateLimit({
-    windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100, // Limit each IP to 100 requests per windowMs
-    message:
-        "Too many requests from this IP, please try again after 15 minutes",
-    standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-    legacyHeaders: false, // Disable the `X-RateLimit-*` headers
-});
-
-app.use(limiter); // Apply to all routes.  You can apply to specific routes if needed.
-
-// --------------------------------------------------------------------------
-// JWT Functions
-// --------------------------------------------------------------------------
-
 const generateToken = (user) => {
-    return jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, {
-        // Include role in token
-        expiresIn: "1h",
+    return jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+        expiresIn: "1h", // Token expires in 1 hour
     });
 };
-
-const verifyToken = (req, res, next) => {
-    const authHeader = req.headers.authorization;
-
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
-        return res
-            .status(401)
-            .json({ message: "No token provided or invalid token format." });
-    }
-
-    const token = authHeader.substring(7);
-
-    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
-        if (err) {
-            return res.status(401).json({ message: "Invalid token." });
-        }
-
-        req.userId = decoded.id;
-        req.userRole = decoded.role; // Add user role to the request
-        next();
-    });
-};
-
-// --------------------------------------------------------------------------
-// Admin Role Check Middleware
-// --------------------------------------------------------------------------
-
-const isAdmin = (req, res, next) => {
-    if (req.userRole === "admin") {
-        next();
-    } else {
-        return res
-            .status(403)
-            .json({ message: "Unauthorized: Admin access required." });
-    }
-};
-
-// --------------------------------------------------------------------------
-// Gemini Instructions API
-// --------------------------------------------------------------------------
 
 app.get("/api/get-gemini-instructions", async (req, res) => {
     try {
@@ -141,112 +63,41 @@ app.get("/api/get-gemini-instructions", async (req, res) => {
     }
 });
 
-app.post(
-    "/api/create-gemini-instructions",
-    verifyToken, // Authentication required
-    isAdmin, // Admin role required
-    [
-        // Input validation using express-validator
-        body("instructionString")
-            .notEmpty()
-            .withMessage("Instruction string is required"),
-        body("version")
-            .isInt({ min: 1 })
-            .withMessage("Version must be a positive integer"),
-    ],
-    async (req, res) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+// backend/index.js
+app.post("/api/create-gemini-instructions", async (req, res) => {
+    console.log("Received Request");
+    try {
+        const { instructionString, version } = req.body;
+
+        console.log(req.body);
+
+        if (!instructionString || !version) {
+            return res
+                .status(400)
+                .json({ message: "Missing instructions or version." });
         }
 
-        try {
-            const { instructionString, version } = req.body;
+        //Deactivate all other instructions
+        await Instruction.updateMany({ active: true }, { active: false });
 
-            await Instruction.updateMany({ active: true }, { active: false });
+        const newInstruction = new Instruction({
+            instructionString: instructionString,
+            version: version,
+        });
 
-            const newInstruction = new Instruction({
-                instructionString: instructionString,
-                version: version,
-                active: true,
-            });
+        const savedInstruction = await newInstruction.save();
 
-            const savedInstruction = await newInstruction.save();
-
-            res.status(201).json({
-                message: "Instructions created and activated.",
-                instruction: savedInstruction,
-            });
-        } catch (err) {
-            console.error("Error creating/updating instruction:", err);
-            res.status(500).json({
-                message: "Failed to create/update instructions",
-            });
-        }
+        res.status(201).json({
+            message: "Instructions created and activated.",
+            instruction: savedInstruction,
+        });
+    } catch (err) {
+        console.error("Error creating/updating instruction:", err);
     }
-);
+});
 
-// --------------------------------------------------------------------------
-// User Authentication API
-// --------------------------------------------------------------------------
-
-app.post(
-    "/signup",
-    [
-        body("username")
-            .isLength({ min: 3 })
-            .withMessage("Username must be at least 3 characters"),
-        body("password")
-            .isLength({ min: 6 })
-            .withMessage("Password must be at least 6 characters"),
-    ],
-    async (req, res) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
-        }
-
-        try {
-            const { username, password } = req.body;
-
-            const existingUser = await User.findOne({ username });
-            if (existingUser) {
-                return res
-                    .status(409)
-                    .json({ message: "Username already taken." });
-            }
-
-            const hashedPassword = await bcrypt.hash(password, 10);
-
-            const newUser = new User({
-                username,
-                password: hashedPassword,
-                role: "student", // Default role
-            });
-
-            const user = await User.create(newUser);
-
-            const token = generateToken(user);
-
-            return res.status(201).json({
-                message: "User registered successfully",
-                user: {
-                    _id: user._id,
-                    username: user.username,
-                    role: user.role,
-                }, // Include role
-                token,
-            });
-        } catch (err) {
-            console.error(err);
-            return res.status(500).json({
-                message: "Server error during registration: " + err.message,
-            });
-        }
-    }
-);
-
-app.post("/login", async (req, res) => {
+// ** 1. User Registration (Signup) **
+app.post("/signup", async (req, res) => {
     try {
         const { username, password } = req.body;
 
@@ -256,22 +107,63 @@ app.post("/login", async (req, res) => {
                 .json({ message: "Missing username or password." });
         }
 
-        const user = await User.findOne({ username });
-        if (!user) {
-            return res.status(401).json({ message: "Invalid credentials." });
+        // Check if user already exists
+        const existingUser = await User.findOne({ username });
+        if (existingUser) {
+            return res.status(409).json({ message: "Username already taken." }); // 409 Conflict
         }
 
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 10); // 10 is the saltRounds
+
+        const newUser = new User({
+            username,
+            password: hashedPassword,
+        });
+
+        const user = await User.create(newUser);
+
+        const token = generateToken(user);
+
+        return res.status(201).json({
+            message: "User registered successfully",
+            user: { _id: user._id, username: user.username },
+            token,
+        });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({
+            message: "Server error during registration: " + err.message,
+        });
+    }
+});
+
+// ** 2. User Login **
+app.post("/login", async (req, res) => {
+    try {
+        const { username, password } = req.body;
+
+        if (!username || !password) {
+            return res
+                .status(400)
+                .json({ message: "Missing username or password." });
+        }
+        const user = await User.findOne({ username });
+        if (!user) {
+            return res.status(401).json({ message: "Invalid credentials." }); // 401 Unauthorized
+        }
+
+        // Compare password
         const passwordMatch = await bcrypt.compare(password, user.password);
 
         if (!passwordMatch) {
             return res.status(401).json({ message: "Invalid credentials." });
         }
-
         const token = generateToken(user);
 
         return res.status(200).json({
             message: "Login successful",
-            user: { _id: user._id, username: user.username, role: user.role }, // Include role
+            user: { _id: user._id, username: user.username },
             token,
         });
     } catch (err) {
@@ -282,8 +174,27 @@ app.post("/login", async (req, res) => {
     }
 });
 
-// User Update (Edit Profile) - Requires Authentication
+// ** 3. User Update (Edit Profile) - Requires Authentication **
+// Middleware to verify the token
+const verifyToken = (req, res, next) => {
+    const token = req.headers["authorization"]; // Or however you send the token
+
+    if (!token) {
+        return res.status(403).json({ message: "No token provided." });
+    }
+
+    jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+        if (err) {
+            return res.status(401).json({ message: "Invalid token." });
+        }
+
+        req.userId = decoded.id; // Add user ID to the request
+        next(); // Proceed to the next middleware/route handler
+    });
+};
+
 app.put("/users/:id", verifyToken, async (req, res) => {
+    //:id - is the user ID
     try {
         if (req.userId !== req.params.id) {
             return res
@@ -291,16 +202,16 @@ app.put("/users/:id", verifyToken, async (req, res) => {
                 .json({ message: "Unauthorized to update this profile" });
         }
 
+        // Hash the new password if it's being updated
         if (req.body.password) {
             req.body.password = await bcrypt.hash(req.body.password, 10);
         }
-
         const updatedUser = await User.findByIdAndUpdate(
             req.params.id,
             req.body,
             {
-                new: true,
-                runValidators: true,
+                new: true, // Return the updated document
+                runValidators: true, // Ensure schema validation is run
             }
         );
 
@@ -320,59 +231,44 @@ app.put("/users/:id", verifyToken, async (req, res) => {
     }
 });
 
-// Get all users (Admin only)
-app.get("/users", verifyToken, isAdmin, async (req, res) => {
+app.get("/users", async (req, res) => {
     try {
-        const users = await User.find({}, "username _id role"); // Include role
-        return res.status(200).json({ message: users });
+        const users = await User.find({});
+        return res.status(200).send({ message: users });
     } catch (err) {
         console.error(err);
-        return res.status(500).send({ message: "Server Error" + err.message });
+        return res.status(500).send({
+            message: "Server Error" + err.message,
+        });
     }
 });
 
-// --------------------------------------------------------------------------
-// Message Handling API
-// --------------------------------------------------------------------------
-
-app.post(
-    "/messages",
-    verifyToken, // Authentication required
-    [
-        // Input validation
-        body("name").notEmpty().withMessage("Name is required"),
-        body("email").isEmail().withMessage("Invalid email address"),
-        body("message").notEmpty().withMessage("Message is required"),
-    ],
-    async (req, res) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+app.post("/messages", async (req, res) => {
+    try {
+        if (!req.body.name || !req.body.message || !req.body.email) {
+            res.status(400).send({
+                message: "Invalid Submission",
+            });
         }
 
-        try {
-            const userId = req.userId; // The ID of the authenticated user
+        const newMessage = {
+            name: req.body.name,
+            email: req.body.email,
+            message: req.body.message,
+            company: req.body.company,
+        };
 
-            const newMessage = {
-                name: req.body.name,
-                email: req.body.email,
-                message: req.body.message,
-                company: req.body.company,
-                userId: userId, // Store the user ID with the message
-            };
-
-            const message = await Message.create(newMessage);
-            return res.status(201).send(message);
-        } catch (err) {
-            console.error(err);
-            return res
-                .status(500)
-                .send({ message: "Server Error" + err.message });
-        }
+        const message = await Message.create(newMessage);
+        return res.status(201).send(message);
+    } catch (err) {
+        console.error(err);
+        return res.status(500).send({
+            message: "Server Error" + err.message,
+        });
     }
-);
+});
 
-app.delete("/messages/:id", verifyToken, isAdmin, async (req, res) => {
+app.delete("/messages/:id", async (req, res) => {
     try {
         const { id } = req.params;
         const result = await Message.findByIdAndDelete(id);
@@ -390,17 +286,14 @@ app.delete("/messages/:id", verifyToken, isAdmin, async (req, res) => {
     }
 });
 
-// --------------------------------------------------------------------------
-// Chat Session API
-// --------------------------------------------------------------------------
-
-app.post("/sessions", verifyToken, async (req, res) => {
+app.post("/sessions", async (req, res) => {
     try {
-        const userId = req.userId || null; // Use req.userId from token
+        const userId = req.body.userId || null; // Optional - can be null for anonymous users
+
         const newSession = new Chat({
             userId,
             title: req.body.title || "New Conversation",
-            messages: [],
+            messages: [], // Start with empty messages
         });
 
         const session = await newSession.save();
@@ -416,7 +309,10 @@ app.post("/sessions", verifyToken, async (req, res) => {
     }
 });
 
-app.post("/chats", verifyToken, async (req, res) => {
+// Update your existing endpoint to add messages to a session
+app.post("/chats", async (req, res) => {
+    console.log("Got Response");
+
     try {
         // 1. Fetch the Gemini instructions directly
         let modelInstructions;
@@ -480,7 +376,7 @@ app.post("/chats", verifyToken, async (req, res) => {
         } else {
             // Create new session if no sessionId provided
             chatSession = new Chat({
-                userId: req.userId || null,
+                userId: req.body.userId || null,
                 title: "New Conversation",
             });
             await chatSession.save();
@@ -530,27 +426,25 @@ app.post("/chats", verifyToken, async (req, res) => {
     }
 });
 
-// Get all sessions for a user
-app.get("/sessions", verifyToken, async (req, res) => {
+app.get("/users", verifyToken, async (req, res) => {
     try {
-        const userId = req.userId;
-        const filter = userId ? { userId } : {};
+        const user = await User.findById(req.userId);
+        if (!user || user.role !== "admin") {
+            return res.status(403).json({ message: "Unauthorized." });
+        }
 
-        const sessions = await Chat.find(filter)
-            .sort({ updatedAt: -1 }) // Sort by most recent
-            .select("-messages"); // Exclude message content for performance
-
-        return res.status(200).json(sessions);
+        const users = await User.find({}, "username _id");
+        return res.status(200).json({ message: users });
     } catch (err) {
         console.error(err);
-        return res
-            .status(500)
-            .json({ message: "Error retrieving sessions: " + err.message });
+        return res.status(500).send({
+            message: "Server Error" + err.message,
+        });
     }
 });
 
 // Get all messages for a session
-app.get("/sessions/:sessionId", verifyToken, async (req, res) => {
+app.get("/sessions/:sessionId", async (req, res) => {
     try {
         const session = await Chat.findById(req.params.sessionId);
         if (!session) {
@@ -565,9 +459,24 @@ app.get("/sessions/:sessionId", verifyToken, async (req, res) => {
     }
 });
 
-// --------------------------------------------------------------------------
-// Database Connection and Server Start
-// --------------------------------------------------------------------------
+// Get all sessions for a user
+app.get("/sessions", async (req, res) => {
+    try {
+        const userId = req.query.userId;
+        const filter = userId ? { userId } : {};
+
+        const sessions = await Chat.find(filter)
+            .sort({ updatedAt: -1 }) // Sort by most recent
+            .select("-messages"); // Exclude message content for performance
+
+        return res.status(200).json(sessions);
+    } catch (err) {
+        console.error(err);
+        return res
+            .status(500)
+            .json({ message: "Error retrieving sessions: " + err.message });
+    }
+});
 
 mongoose
     .connect(MONGODB, {

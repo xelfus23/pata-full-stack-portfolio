@@ -1,5 +1,5 @@
 import { useWritingAnimation } from "@/hooks/useWritingAnimation";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { useCursorState } from "../../../utils/cursorProvider";
 import PrimaryButton from "@/components/ui/button/primaryButton";
 import SecondaryButton from "@/components/ui/button/secondaryButton";

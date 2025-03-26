@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import Section from "../../ui/section";
 import Image from "next/image";
 import useScroll from "@/hooks/useScroll";

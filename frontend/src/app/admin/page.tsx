@@ -12,6 +12,10 @@ const AdminPage: React.FC = () => {
             label: "Check Messages",
             slug: "check-messages",
         },
+        {
+            label: "View Projects",
+            slug: "view-projects"
+        }
     ];
 
     return (
@@ -20,7 +24,7 @@ const AdminPage: React.FC = () => {
                 <Link
                     href={`/admin/${item.slug}`} // Modified href
                     key={item.slug}
-                    className="p-20 bg-secondary/20 hover:bg-secondary/30 hover:cursor-pointer rounded-md"
+                    className="p-20 bg-primary/10 hover:bg-secondary/30 hover:cursor-pointer rounded-md text-center text-sm"
                 >
                     {item.label}
                 </Link>

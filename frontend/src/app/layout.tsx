@@ -11,7 +11,7 @@ import { LayoutWrapper } from "@/components/layoutWrapper";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-    title: "Patrick - Portfolio",
+    title: "Patrick John Medenilla",
     description: "Frontend developer specializing in React and Next.js",
     icons: "/icons/icon.png",
 };

@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState, useRef, useEffect, useMemo } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { usePathname } from "next/navigation";
 // import Image from "next/image";
 import { useWritingAnimation } from "@/hooks/useWritingAnimation";

@@ -3,7 +3,7 @@ import { move } from "@/animations/animations";
 import PrimaryButton from "@/components/ui/button/primaryButton";
 import Input from "@/components/ui/inputs/input";
 import { SendMessage } from "@/api/handleMessage";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { useState } from "react"; // Import useState
 
 type FormTypes = {

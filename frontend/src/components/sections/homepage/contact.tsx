@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import Section from "../../ui/section";
 import PrimaryButton from "@/components/ui/button/primaryButton";
 import React from "react";

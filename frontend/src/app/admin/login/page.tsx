@@ -5,7 +5,7 @@ import PrimaryButton from "@/components/ui/button/primaryButton";
 import Input from "@/components/ui/inputs/input";
 import { FormEvent, useState } from "react";
 import React from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import CircleLoading from "@/components/circleLoading";
 import { useAuth } from "../components/auth";
 

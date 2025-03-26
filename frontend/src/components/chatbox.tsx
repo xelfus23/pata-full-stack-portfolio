@@ -1,5 +1,5 @@
 import { primary, secondary } from "@/constant/colors";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import Input from "./ui/inputs/input";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { move } from "@/animations/animations";
@@ -153,6 +153,112 @@ const ChatBox: React.FC<types> = ({ setLenisState }) => {
 
         loadSession();
     }, []);
+
+
+    // useEffect(() => {
+    //     const loadSession = async () => {
+    //         // Try to get session from localStorage
+    //         const savedSessionId = localStorage.getItem("chatSessionId");
+
+    //         if (savedSessionId) {
+    //             try {
+    //                 // Load existing session
+    //                 const response = await api.get(
+    //                     `/sessions/${savedSessionId}`
+    //                 ); // Use the 'api' object
+    //                 setSessionId(savedSessionId);
+
+    //                 // Map the messages to your component format
+    //                 const loadedMessages = response.data.messages.map(
+    //                     (msg: {
+    //                         role: string;
+    //                         message: string;
+    //                         _id: string;
+    //                     }) => ({
+    //                         role: msg.role === "model" ? "bot" : msg.role,
+    //                         message: formatGeminiResponse(msg.message),
+    //                         id: msg._id,
+    //                     })
+    //                 );
+    //                 setMessages((prev) => [...prev, ...loadedMessages]);
+    //             } catch (error) {
+    //                 console.error("Failed to load session:", error);
+    //                 // Create new session if loading fails
+    //                 createNewSession();
+    //             }
+    //         } else {
+    //             // No saved session, create a new one
+    //             createNewSession();
+    //         }
+    //     };
+
+    //     const createNewSession = async () => {
+    //         try {
+    //             const response = await api.post(`/sessions`); // Use the 'api' object
+    //             const newSessionId = response.data.session._id;
+    //             setSessionId(newSessionId);
+    //             localStorage.setItem("chatSessionId", newSessionId);
+    //         } catch (error) {
+    //             console.error("Failed to create session:", error);
+    //         }
+    //     };
+
+    //     loadSession();
+    // }, []);
+
+    // const handleSubmit = async (e: FormEvent) => {
+    //     e.preventDefault();
+    //     setLoading(true);
+
+    //     const trimmedInput = input.trim();
+
+    //     if (trimmedInput === "") {
+    //         setError("Please enter a message");
+    //         setTimeout(() => {
+    //             setError(null);
+    //         }, 3000);
+    //         setLoading(false);
+    //         return;
+    //     }
+
+    //     const newMessage: MessageType = {
+    //         role: "user",
+    //         message: trimmedInput,
+    //         id: String(Date.now()),
+    //     };
+
+    //     setMessages((prev) => [...prev, newMessage]);
+    //     setInput(""); // Clear input *after* adding message to state
+
+    //     try {
+    //         const postData = {
+    //             sessionId: sessionId,
+    //             role: "user",
+    //             message: trimmedInput,
+    //         };
+
+    //         //Use api here to include token on the header request.
+    //         const response = await api.post(`/chats`, postData, {
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //             },
+    //         });
+
+    //         const botResponse = response.data.messages[1];
+    //         const newAIMessage: MessageType = {
+    //             role: "bot",
+    //             message: formatGeminiResponse(botResponse.message),
+    //             id: botResponse._id || String(Date.now()),
+    //         };
+    //         setMessages((prev) => [...prev, newAIMessage]);
+    //     } catch (error) {
+    //         console.error("Error sending message:", error);
+    //         setError("Failed to send message. Please try again later."); // Display user-friendly error
+    //         setTimeout(() => setError(null), 5000);
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
 
     const handleSubmit = async (e: FormEvent) => {
         setLoading(true);
