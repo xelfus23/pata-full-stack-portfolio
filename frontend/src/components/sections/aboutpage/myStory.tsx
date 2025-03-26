@@ -3,16 +3,17 @@ import { useInView } from "motion/react";
 import Section from "@/components/ui/section";
 import { motion } from "motion/react";
 import { accent, primary, secondary } from "@/constant/colors";
-import PrimaryButton from "@/components/ui/button/primaryButton";
+// import PrimaryButton from "@/components/ui/button/primaryButton";
 
-const MyStory = () => {
+const MyJourney = () => {
     // 1. Story Content (useMemo for Efficiency)
     const fullText = useMemo(
         () => [
             "Hello! I'm Patrick John Medenilla, a passionate web developer currently pursuing a Bachelor's degree in Information Technology with a major in Web Application Development at AMA University.",
-            "Since I was a kid, I think I already have a passion with coding. I was fascinated whenever I watch or see someone coding, those indentation lines, dark theme, line numbers, and many more. I think it's cool!",
-            "Back then, I don't really have a good pc, it was old, but I think its a good thing. Because whenever our pc broke, I watch tutorials on youtube to fix it myself. ",
-            "Well, it doesn't really have anything to do with programming. But I think it is what motivates me to be curious and explore more about computers.",
+            "My journey into the world of programming began with a simple curiosity, and it has evolved into a full-blown passion for creating user-friendly and engaging web experiences.",
+            "As a student with a growing passion for web development, it started with building a simple website. I was immediately captivated by the power of code to create and solve problems.",
+            "Currently, I am focused on mastering React.js, Next.js, and learning backend development. I like seeking new challenges and opportunities to expand my skills and knowledge and to contribute to meaningful projects.",
+            "My goal is to become a full-stack developer, work on innovative web applications, and I'm excited about the future and the potential to make a positive impact through technology.",
         ],
         []
     );
@@ -43,7 +44,7 @@ const MyStory = () => {
                         return prevIndex; // Keep the last index
                     }
                 });
-            }, 1000);
+            }, 2000);
         }
 
         // Cleanup function to clear the interval when the component unmounts or is out of view
@@ -135,47 +136,6 @@ const MyStory = () => {
                                 )}
                             </motion.div>
                         ))}
-
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{
-                                opacity:
-                                    showedParagraphIndex === fullText.length - 1
-                                        ? 1
-                                        : 0,
-                            }}
-                            transition={{ delay: 1, duration: 1 }}
-                            className={`w-[50%] self-start flex items-center `} // Hide if not yet showed
-                        >
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ delay: 0, duration: 1 }}
-                                className={`"bg-secondary/5 w-full border border-secondary/30 rounded-xl lg:p-10 p-2`}
-                            >
-                                <motion.span
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    transition={{
-                                        delay: 0.01,
-                                        duration: 1,
-                                    }}
-                                >
-                                    <div className="flex flex-col justify-center items-center h-16">
-                                        <div>
-                                            <PrimaryButton
-                                                label="Read more"
-                                                type="button"
-                                                onClick={() =>
-                                                    console.log("clicked")
-                                                }
-                                            />
-                                        </div>
-                                    </div>
-                                </motion.span>
-                            </motion.div>
-                            <div className="w-30 h-1 bg-secondary" />
-                        </motion.div>
                     </div>
                 </div>
             </Section>
@@ -191,4 +151,4 @@ const MyStory = () => {
     );
 };
 
-export default MyStory;
+export default MyJourney;

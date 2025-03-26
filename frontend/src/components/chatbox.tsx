@@ -95,6 +95,7 @@ const ChatBox: React.FC<types> = ({ setLenisState }) => {
             id: "1",
         },
     ]);
+
     axios.defaults.withCredentials = false;
 
     useEffect(() => {
@@ -105,9 +106,7 @@ const ChatBox: React.FC<types> = ({ setLenisState }) => {
 
     useEffect(() => {
         const loadSession = async () => {
-            // Try to get session from localStorage
             const savedSessionId = localStorage.getItem("chatSessionId");
-
             if (savedSessionId) {
                 try {
                     // Load existing session
@@ -131,11 +130,9 @@ const ChatBox: React.FC<types> = ({ setLenisState }) => {
                     setMessages((prev) => [...prev, ...loadedMessages]);
                 } catch (error) {
                     console.error("Failed to load session:", error);
-                    // Create new session if loading fails
                     createNewSession();
                 }
             } else {
-                // No saved session, create a new one
                 createNewSession();
             }
         };

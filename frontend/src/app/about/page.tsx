@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useMemo } from "react";
 import HeroSection from "../../components/sections/aboutpage/hero";
-import MyStory from "../../components/sections/aboutpage/myStory";
+import MyJourney from "../../components/sections/aboutpage/myStory";
 import PersonalInterests from "../../components/sections/aboutpage/personalInterest";
 import Head from "next/head";
 import Skills from "../../components/sections/aboutpage/skills";
@@ -19,7 +19,7 @@ const AboutPage = () => {
             },
             {
                 key: 2,
-                component: <MyStory />,
+                component: <MyJourney />,
                 id: "my-journey",
             },
             {
