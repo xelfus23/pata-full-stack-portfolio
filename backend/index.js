@@ -54,7 +54,7 @@ app.get("/api/get-gemini-instructions", async (req, res) => {
         res.status(200).json({
             instructionString: activeInstructions.instructionString,
             version: activeInstructions.version,
-        }); // Send the string
+        });
     } catch (error) {
         console.error("Error fetching instructions:", error);
         res.status(500).json({
